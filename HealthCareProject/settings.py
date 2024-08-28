@@ -22,8 +22,13 @@ INSTALLED_APPS = [
     # thired party apps
     'rest_framework',
     'drf_spectacular',
-    # my apps
+    'django_jalali',
+    # our apps
     'accounts.apps.AccountsConfig',
+    'customer.apps.CustomerConfig',
+    'product.apps.ProductConfig',
+    'ticket.apps.TicketConfig',
+    'certificate.apps.CertificateConfig',
 ]
 
 MIDDLEWARE = [
