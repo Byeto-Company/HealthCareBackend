@@ -19,16 +19,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # thired party apps
-    'rest_framework',
-    'drf_spectacular',
-    'django_jalali',
     # our apps
     'accounts.apps.AccountsConfig',
     'customer.apps.CustomerConfig',
     'product.apps.ProductConfig',
     'ticket.apps.TicketConfig',
     'certificate.apps.CertificateConfig',
+    # thired party apps
+    'rest_framework',
+    'drf_spectacular',
+    'django_jalali',
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [
