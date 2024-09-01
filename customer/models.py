@@ -3,20 +3,26 @@ import django_jalali.db.models as jmodels
 
 
 class Province(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+    name = models.CharField(max_length=100, unique=True, verbose_name="نام استان")
+
+    class Meta:
+        verbose_name = "استان"
+        verbose_name_plural = "استان‌ها"
 
     def __str__(self):
         return self.name
 
 
 class City(models.Model):
-    name = models.CharField(max_length=100)
-    province = models.ForeignKey(Province, related_name='cities', on_delete=models.CASCADE)
-    latitude = models.CharField(max_length=20)
-    longitude = models.CharField(max_length=20)
+    name = models.CharField(max_length=100, verbose_name="نام شهر")
+    province = models.ForeignKey(Province, related_name='cities', on_delete=models.CASCADE, verbose_name="استان")
+    latitude = models.CharField(max_length=20, verbose_name="عرض جغرافیایی")
+    longitude = models.CharField(max_length=20, verbose_name="طول جغرافیایی")
 
     class Meta:
         unique_together = ('name', 'province')
+        verbose_name = "شهر"
+        verbose_name_plural = "شهرها"
 
     def __str__(self):
         return f"{self.name}, {self.province.name}"
@@ -24,11 +30,15 @@ class City(models.Model):
 
 class Customer(models.Model):
     objects = jmodels.jManager()
-    name = models.CharField(max_length=100)
-    corporate_date = jmodels.jDateField()
-    program_name = models.CharField(max_length=100)
-    province = models.ForeignKey(Province, on_delete=models.SET_NULL, null=True)
-    city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
+    name = models.CharField(max_length=100, verbose_name="نام مشتری")
+    corporate_date = jmodels.jDateField(verbose_name="تاریخ همکاری")
+    program_name = models.CharField(max_length=100, verbose_name="نام برنامه")
+    province = models.ForeignKey(Province, on_delete=models.SET_NULL, null=True, verbose_name="استان")
+    city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, verbose_name="شهر")
+
+    class Meta:
+        verbose_name = "مشتری"
+        verbose_name_plural = "مشتریان"
 
     def __str__(self):
         return self.name

@@ -8,8 +8,11 @@ from django.conf import settings
 urlpatterns = [
     path('schema/', SpectacularAPIView.as_view(), name='schema'),
     path('swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('about/', include('about.urls')),
     path('customer/', include('customer.urls')),
     path('accounts/', include('accounts.urls')),
+    path('product/', include('product.urls')),
+    path('ticket/', include('ticket.urls')),
     path('', admin.site.urls),
 ]
 
