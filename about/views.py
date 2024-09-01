@@ -1,9 +1,10 @@
-from .serializers import WorkTagSerializer, WorkFieldSerializer, ManagerSerializer, CertificateSerializer
+from .serializers import WorkTagSerializer, WorkFieldSerializer, ManagerSerializer, CertificateSerializer, SocialSerializer
 from .models import WorkField, WorkTags, Manager, Certificate
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
-
-
+from rest_framework.views import APIView 
+from .models import Soical
+from rest_framework.views import Response
 class WorkFieldViewSet(ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = WorkField.objects.all()
@@ -30,3 +31,11 @@ class CertificateViewSet(ModelViewSet):
     queryset = Certificate.objects.all()
     serializer_class = CertificateSerializer
     partial_update = None
+
+
+class SoicalView(APIView):
+    serializer_class = SocialSerializer
+    def get(self, request):
+        socials = Soical.objects.all()
+        social_ser = SocialSerializer(instance=socials, many=True)
+        return Response(social_ser.data)

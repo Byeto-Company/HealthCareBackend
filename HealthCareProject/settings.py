@@ -63,12 +63,37 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'HealthCareProject.wsgi.application'
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'root',
+        'PASSWORD': 'Xb2UxlUAtCpBAo77bqcSXU39',
+        'HOST': 'grand-teton.liara.cloud',
+        'PORT': '34967',
     }
 }
+# private network
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'postgres',
+#         'USER': 'root',
+#         'PASSWORD': '',
+#         'HOST': '',
+#         'PORT': '',
+#     }
+# }
+
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {

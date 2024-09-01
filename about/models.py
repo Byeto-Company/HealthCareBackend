@@ -70,3 +70,23 @@ class Certificate(models.Model):
 
     def __str__(self):
         return self.title
+
+
+
+class Soical(models.Model):
+    soical_choices = (
+        ('اینستاگرام', 'instagram'),
+        ('تلگرام', 'telegram'),
+        ('واتساپ', 'whatsapp'),
+        ('تویتر', 'twitter')
+    )
+    soical = models.CharField(max_length=100, choices=soical_choices, unique=True)
+    link = models.URLField()
+
+    class Meta:
+        verbose_name = 'شبکه ی اجتماعی'
+        verbose_name_plural = 'شبکه های اجتماعی'
+
+    def __str__(self):
+        return self.soical
+

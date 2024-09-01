@@ -13,7 +13,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('product/', include('product.urls')),
     path('ticket/', include('ticket.urls')),
-    path('', admin.site.urls),
+    path('admin/', admin.site.urls),
 ]
 
 

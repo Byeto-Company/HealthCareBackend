@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import WorkTags, WorkField, Manager, Certificate
+from .models import WorkTags, WorkField, Manager, Certificate, Soical
 
 
 class WorkFieldSerializer(serializers.ModelSerializer):
@@ -28,3 +28,10 @@ class CertificateSerializer(serializers.ModelSerializer):
         model = Certificate
         fields = '__all__'
         read_only_fields = [id, ]
+
+
+class SocialSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Soical 
+        fields = '__all__'
+        read_only_fields = (id, )

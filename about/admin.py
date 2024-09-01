@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import WorkTags, WorkField, Manager, Certificate
+from .models import *
 from django.core.exceptions import ValidationError
 
 
@@ -37,3 +37,6 @@ class CertificateAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'description')
     search_fields = ('title', 'description')
 
+@admin.register(Soical)
+class SoicalAdmin(admin.ModelAdmin):
+    list_display = ('soical', 'link')
