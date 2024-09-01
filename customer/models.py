@@ -1,18 +1,40 @@
 from django.db import models
 import django_jalali.db.models as jmodels
+
+
+class Province(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
+class City(models.Model):
+    name = models.CharField(max_length=100)
+    province = models.ForeignKey(Province, related_name='cities', on_delete=models.CASCADE)
+    latitude = models.CharField(max_length=20)
+    longitude = models.CharField(max_length=20)
+
+    class Meta:
+        unique_together = ('name', 'province')
+
+    def __str__(self):
+        return f"{self.name}, {self.province.name}"
+
+
 class Customer(models.Model):
+    objects = jmodels.jManager()
     name = models.CharField(max_length=100)
     corporate_date = jmodels.jDateField()
     program_name = models.CharField(max_length=100)
-    # addreess of the customer
+    province = models.ForeignKey(Province, on_delete=models.SET_NULL, null=True)
+    city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
+
     def __str__(self):
         return self.name
-    
+
     def persian_corporate_date(self):
         return convert_to_persian_numbers(str(self.corporate_date))
-
-
-
 
 
 def convert_to_persian_numbers(date_string):
@@ -29,8 +51,8 @@ def convert_to_persian_numbers(date_string):
         '8': '۸',
         '9': '۹'
     }
-    
+
     # Replace each English digit with its Persian equivalent
     persian_date_string = ''.join(english_to_persian.get(char, char) for char in date_string)
-    
+
     return persian_date_string

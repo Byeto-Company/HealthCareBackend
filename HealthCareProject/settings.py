@@ -1,6 +1,7 @@
 from pathlib import Path
 from datetime import timedelta
 import os
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-*%7xn10@%!n8o7agwc+m$%vx7-=g^oj!1$3y#0+aa+6rsy=$^p'
 
@@ -8,7 +9,6 @@ SECRET_KEY = 'django-insecure-*%7xn10@%!n8o7agwc+m$%vx7-=g^oj!1$3y#0+aa+6rsy=$^p
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -24,8 +24,8 @@ INSTALLED_APPS = [
     'customer.apps.CustomerConfig',
     'product.apps.ProductConfig',
     'ticket.apps.TicketConfig',
-    'certificate.apps.CertificateConfig',
-    # thired party apps
+    'about.apps.AboutConfig',
+    # third party apps
     'rest_framework',
     'drf_spectacular',
     'django_jalali',
@@ -34,7 +34,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    "whitenoise.middleware.WhiteNoiseMiddleware", # white noise
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # white noise
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -63,16 +63,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'HealthCareProject.wsgi.application'
 
-
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -89,9 +85,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -99,8 +92,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
-
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
@@ -124,17 +115,18 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=5000),
 }
 
-
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Health Care API',
     'DESCRIPTION': 'an api for landing health care services',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
-    'COMPONENT_SPLIT_REQUEST': True # for media settings 
+    'COMPONENT_SPLIT_REQUEST': True  # for media settings
 }
 
-
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticroot')
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
