@@ -1,6 +1,8 @@
 from . import views
 from rest_framework.routers import DefaultRouter
 from django.urls import path
+
+
 app_name = 'about'
 urlpatterns = [
     path('social', views.SoicalView.as_view())
