@@ -3,6 +3,7 @@ attrs==24.2.0
 Django==5.1
 django-cleanup==8.1.0
 django-filter==24.3
+django-iranian-cities==1.0.2
 django-jalali==7.1.0
 djangorestframework==3.15.2
 djangorestframework-simplejwt==5.3.1
