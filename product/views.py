@@ -2,6 +2,7 @@ from .serializers import ProductSerializer, CategorySerializer
 from .models import Product, Category
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from .pagination import ProductLimitOffsetPagination
 
 
 class CategoryViewSet(ModelViewSet):
@@ -15,4 +16,5 @@ class ProductViewSet(ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    pagination_class = ProductLimitOffsetPagination
     partial_update = None
