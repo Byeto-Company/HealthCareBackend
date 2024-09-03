@@ -7,5 +7,5 @@ urlpatterns = [
 
 router = DefaultRouter()
 router.register(r'categories', views.CategoryViewSet, basename='category')
-router.register(r'products', views.ProductViewSet, basename='product')
+router.register(r'', views.ProductViewSet, basename='product')
 urlpatterns += router.urls

@@ -10,7 +10,7 @@ urlpatterns = [
 ]
 
 router = DefaultRouter()
-router.register(r'viewset', views.CustomerViewSet, basename='customer')
+router.register(r'customer', views.CustomerViewSet, basename='customer')
 router.register(r'province', views.CustomerProvinceViewSet, basename='province')
 
 urlpatterns += router.urls
