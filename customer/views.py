@@ -1,3 +1,4 @@
+from .pagination import CustomerLimitOffsetPagination
 from .serializer import CustomerSerializer
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -14,6 +15,7 @@ class CustomerViewSet(ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
+    pagination_class = CustomerLimitOffsetPagination
     partial_update = None
 
 
