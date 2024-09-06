@@ -23,3 +23,6 @@ sqlparse==0.5.1
 tzdata==2024.1
 uritemplate==4.1.1
 whitenoise==6.7.0
+
+factory_boy~=3.3.1
+Faker~=28.4.1
