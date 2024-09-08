@@ -1,8 +1,10 @@
-from .serializers import ProductSerializer, CategoryBreadcrumbSerializer
+from .serializers import *
 from .models import Product, Category
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .pagination import ProductLimitOffsetPagination
+from rest_framework.views import APIView, Response
+from drf_spectacular.utils import extend_schema, OpenApiParameter
 
 
 class CategoryViewSet(ModelViewSet):
@@ -18,3 +20,31 @@ class ProductViewSet(ModelViewSet):
     serializer_class = ProductSerializer
     pagination_class = ProductLimitOffsetPagination
     partial_update = None
+
+
+class ProductDetailView(APIView):
+    def get(self, request, pk, *args, **kwargs):
+        try:
+            product = Product.objects.get(pk=pk)
+        except Product.DoesNotExist:
+            return Response({'detail': 'Not found.'}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = ProductDetailSerializer(product)
+        return Response(serializer.data)
+
+class ProductListView(APIView):
+    serializer_class = ProductSerializer
+    pagination_class = ProductLimitOffsetPagination
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(name='limit', type=int, location=OpenApiParameter.QUERY, description='Number of items per page'),
+            OpenApiParameter(name='offset', type=int, location=OpenApiParameter.QUERY, description='Starting position of items'),
+        ],
+        responses={200: ProductSerializer(many=True)},
+    )
+    def get(self, request):
+        queryset = Product.objects.all()
+        paginator = self.pagination_class()
+        page = paginator.paginate_queryset(queryset, request)
+        serializer = self.serializer_class(page, many=True)
+        return paginator.get_paginated_response(serializer.data)
