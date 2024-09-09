@@ -73,16 +73,16 @@ WSGI_APPLICATION = 'HealthCareProject.wsgi.application'
 
 
 # private network database
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'postgres',
-#         'USER': 'root',
-#         'PASSWORD': 'pZiMUzt3fMqaA5tHYam1CPK4',
-#         'HOST': 'healthapidb',
-#         'PORT': '5432',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'root',
+        'PASSWORD': 'pZiMUzt3fMqaA5tHYam1CPK4',
+        'HOST': 'healthapidb',
+        'PORT': '5432',
+    }
+}
 
 
 AUTH_PASSWORD_VALIDATORS = [
