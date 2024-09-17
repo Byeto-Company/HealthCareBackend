@@ -80,7 +80,7 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': 'axRaPPcLpxaUVIjuPTBvTbNy',
         'HOST': 'table-mountain.liara.cloud',
-        'PORT': '32763',
+        'PORT': '32353',
     }
 }
 

@@ -17,10 +17,27 @@ class WorkField(models.Model):
     title = models.CharField(max_length=100, verbose_name="عنوان حوزه")
     description = models.TextField(verbose_name="توضیحات حوزه")
     tags = models.ForeignKey(WorkTags, on_delete=models.CASCADE, verbose_name="برچسب‌ها")
-
+    ordering = models.PositiveIntegerField(unique=True, verbose_name="ترتیب")
     class Meta:
         verbose_name = "حوزه کاری"
         verbose_name_plural = "حوزه‌های کاری"
+
+    def save(self, *args, **kwargs):
+        if self.pk is None and WorkField.objects.count() >= 3:
+            raise ValidationError("حداکثر می‌توانید ۳ حوزه ایجاد کنید.")
+
+        if not (1 <= self.ordering <= 3):
+            raise ValidationError("ترتیب باید بین ۱ و ۳ باشد.")
+
+        if self.pk is not None:
+            original = WorkField.objects.get(pk=self.pk)
+            if original.ordering != self.ordering:
+                super().save(*args, **kwargs)
+            else:
+                raise ValidationError("فقط می‌توانید فیلد ترتیب را به‌روزرسانی کنید.")
+        else:
+            super().save(*args, **kwargs)
+
 
     def __str__(self):
         return self.title
@@ -52,8 +69,8 @@ class Manager(models.Model):
         else:
             super().save(*args, **kwargs)
 
-    def delete(self, *args, **kwargs):
-        raise ValidationError("حذف نمونه‌های مدیر مجاز نیست.")
+    # def delete(self, *args, **kwargs):
+    #     raise ValidationError("حذف نمونه‌های مدیر مجاز نیست.")
 
     def __str__(self):
         return self.name
@@ -90,3 +107,16 @@ class Soical(models.Model):
     def __str__(self):
         return self.soical
 
+class NumberModel(models.Model):
+    number = models.CharField(max_length=30)
+    ordering = models.PositiveIntegerField(unique=True, verbose_name="ترتیب")
+    def __str__(self):
+        return self.number
+
+
+class EmailModel(models.Model):
+    email = models.CharField(max_length=100)
+    ordering = models.PositiveIntegerField(unique=True, verbose_name="ترتیب")
+
+    def __str__(self):
+        return self.email
