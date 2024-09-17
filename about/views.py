@@ -41,7 +41,7 @@ class GetDataBaseView(APIView):
             "certificates" : certificates_seriliazer.data,
             "markaz_darmani_count": Customer.objects.all().count(),
             "category_project_count": {
-                "some_bullshit": "some_bullshit"
+                "some_bullshit_category": "some_bullshit_number its developing "
             },
             
         }

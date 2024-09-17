@@ -5,7 +5,7 @@ class Category(models.Model):
     name = models.CharField(max_length=100, verbose_name="نام")
     description = models.TextField(verbose_name="توضیحات")
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children', verbose_name="دسته‌بندی والد")
-
+    show_count_in_main = models.BooleanField(default=False, verbose_name='نمایش در صفحه ی اصلی', help_text="در صورت روشن بودن این فیلد در پایین صفحه ی خانه تعداد محصولات این دسته بندی نمایش داده میشود ")
     class Meta:
         verbose_name = "دسته‌بندی"
         verbose_name_plural = "دسته‌بندی‌ها"

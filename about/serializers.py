@@ -16,9 +16,6 @@ class WorkFieldSerializer(serializers.ModelSerializer):
         read_only_fields = [id, ]
 
 
-
-
-
 class ManagerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Manager
