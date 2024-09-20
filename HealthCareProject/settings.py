@@ -72,15 +72,15 @@ WSGI_APPLICATION = 'HealthCareProject.wsgi.application'
 
 
 
-# public network database
+# private network database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
         'USER': 'root',
-        'PASSWORD': 'axRaPPcLpxaUVIjuPTBvTbNy',
-        'HOST': 'table-mountain.liara.cloud',
-        'PORT': '32353',
+        'PASSWORD': 'Fouw3Iw0HSsrzkWi3zE2oA3N',
+        'HOST': 'healthdb',
+        'PORT': '5432',
     }
 }
 
