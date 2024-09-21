@@ -1,42 +1,52 @@
 from django.contrib import admin
-from .models import *
-from django.core.exceptions import ValidationError
-
+from django.contrib.postgres.fields import ArrayField
+from django.db import models
+from unfold.admin import ModelAdmin
+from unfold.contrib.forms.widgets import ArrayWidget, WysiwygWidget
+from .models import WorkTags, WorkField, Manager, Certificate, Soical, NumberModel, EmailModel
 
 @admin.register(WorkTags)
-class WorkTagsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title')
+class WorkTagsAdmin(ModelAdmin):
+    list_display = ('title',)
     search_fields = ('title',)
-
+    ordering = ('title',)
 
 @admin.register(WorkField)
-class WorkFieldAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'description', 'tags')
-    search_fields = ('title', 'description')
-    list_filter = ('tags',)
+class WorkFieldAdmin(ModelAdmin):
+    list_display = ('title', 'ordering',)
+    search_fields = ('title',)
+    ordering = ('ordering',)
 
+    formfield_overrides = {
+        models.TextField: {
+            "widget": WysiwygWidget,
+        }
+    }
 
 @admin.register(Manager)
-class ManagerAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'ordering')
+class ManagerAdmin(ModelAdmin):
+    list_display = ('name', 'ordering',)
     search_fields = ('name',)
-    list_filter = ('ordering',)
-
-    def save_model(self, request, obj, form, change):
-        try:
-            super().save_model(request, obj, form, change)
-        except ValidationError as e:
-            self.message_user(request, str(e), level='error')
-
-    def delete_model(self, request, obj):
-        raise ValidationError("Deletion of Manager instances is not allowed.")
-
+    ordering = ('ordering',)
 
 @admin.register(Certificate)
-class CertificateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'description')
-    search_fields = ('title', 'description')
+class CertificateAdmin(ModelAdmin):
+    list_display = ('title',)
+    search_fields = ('title',)
+    ordering = ('title',)
 
 @admin.register(Soical)
-class SoicalAdmin(admin.ModelAdmin):
-    list_display = ('soical', 'link')
+class SoicalAdmin(ModelAdmin):
+    list_display = ('soical', 'link',)
+    search_fields = ('soical',)
+    ordering = ('soical',)
+
+@admin.register(NumberModel)
+class NumberModelAdmin(ModelAdmin):
+    list_display = ('number', 'ordering',)
+    ordering = ('ordering',)
+
+@admin.register(EmailModel)
+class EmailModelAdmin(ModelAdmin):
+    list_display = ('email', 'ordering',)
+    ordering = ('ordering',)

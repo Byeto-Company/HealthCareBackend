@@ -1,28 +1,27 @@
 from django.contrib import admin
-from .models import *
+from unfold.admin import ModelAdmin, TabularInline
+from .models import Category, Product, Feature, Detail
 
-
-class ProductInline(admin.TabularInline):
+class ProductInline(TabularInline):
     model = Product
     extra = 1
 
-class FeatureInline(admin.TabularInline):  # Or admin.StackedInline
+class FeatureInline(TabularInline):  # Or StackedInline
     model = Feature
     extra = 1
 
-class DetailInline(admin.TabularInline):  # Or admin.StackedInline
+class DetailInline(TabularInline):  # Or StackedInline
     model = Detail
     extra = 1
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(ModelAdmin):
     list_display = ('id', 'name', 'description')
     search_fields = ('name', 'description')
     inlines = [ProductInline]
 
-
 @admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
+class ProductAdmin(ModelAdmin):
     list_display = ('id', 'name', 'category', 'description')
     search_fields = ('name', 'description')
     list_filter = ('category',)
