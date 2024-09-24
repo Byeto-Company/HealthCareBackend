@@ -1,3 +1,8 @@
+from django.db.models import Count
+
+from customer.serializer import CustomerSerializer, CustomerProvinceSerializer
+from product.models import Product
+from product.serializers import ProductSerializer
 from .serializers import *
 from .models import WorkField, WorkTags, Manager, Certificate
 from rest_framework.viewsets import ModelViewSet
@@ -6,7 +11,7 @@ from rest_framework.views import APIView
 from .models import *
 from rest_framework.views import Response
 from rest_framework import status
-from customer.models import Customer
+from customer.models import Customer, Province
 
 
 class GetFooterView(APIView):
@@ -46,3 +51,57 @@ class GetDataBaseView(APIView):
             
         }
         return Response(about_data, status=status.HTTP_200_OK)
+
+
+
+class WebsiteContentView(APIView):
+    def get(self, request):
+        # Hero Section
+        hero = Hero.objects.first()  # Assuming there is only one hero section
+        hero_serializer = HeroSerializer(hero)
+
+        # Work Fields Section
+        work_fields = WorkField.objects.all()
+        work_fields_serializer = WorkFieldSerializer(work_fields, many=True)
+
+        # Products Section
+        products = Product.objects.all()
+        products_serializer = ProductSerializer(products, many=True)
+
+        # Managers Section
+        managers = Manager.objects.all()
+        managers_serializer = ManagerSerializer(managers, many=True)
+
+        # Certificates Section
+        certificates = Certificate.objects.all()
+        certificates_serializer = CertificateSerializer(certificates, many=True)
+
+        # Customers Section
+        province_customer_counts = Province.objects.annotate(
+            customer_count=Count('customer')
+        ).filter(customer_count__gt=0)
+        customer_serializer = CustomerProvinceSerializer(province_customer_counts, many=True)
+
+        # Demo Section
+        demo = Demo.objects.first()  # Assuming there is only one demo section
+        demo_serializer = DemoSerializer(demo)
+
+        # About Us Section
+        about_us = AboutUs.objects.first()  # Assuming one about_us
+        about_serializer = AboutUsSerializer(about_us)
+
+        # Footer Section
+        footer = Footer.objects.first()  # Assuming one footer
+        footer_serializer = FooterSerializer(footer)
+
+        return Response({
+            "hero": hero_serializer.data,
+            "work_fields": work_fields_serializer.data,
+            "products": products_serializer.data,
+            "managers": managers_serializer.data,
+            "certificates": certificates_serializer.data,
+            "customers": customer_serializer.data,
+            "demo": demo_serializer.data,
+            "about_us": about_serializer.data,
+            "footer": footer_serializer.data,
+        })

@@ -4,5 +4,5 @@ from django.urls import path
 app_name = 'about'
 urlpatterns = [
     path('footer', views.GetFooterView.as_view()),
-    path('main', views.GetDataBaseView.as_view())
+    path('main', views.WebsiteContentView.as_view())
 ]

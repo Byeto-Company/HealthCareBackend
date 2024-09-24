@@ -49,3 +49,85 @@ class NumberSerializer(serializers.ModelSerializer):
         model = NumberModel 
         fields = '__all__'
         read_only_fields = (id, )
+
+
+# serializers.py
+
+class HeroLogoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HeroLogo
+        fields = ['alt', 'link']
+
+class HeroBodyLogoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HeroLogo
+        fields = ['alt', 'link']
+
+class HeroButtonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HeroButton
+        fields = ['title', 'link']
+
+class HeroImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HeroImage
+        fields = ['alt', 'link']
+
+class HeroSerializer(serializers.ModelSerializer):
+    buttons = HeroButtonSerializer(many=True)
+    images = HeroImageSerializer(many=True)
+    logo = HeroLogoSerializer()
+    body_logo = HeroBodyLogoSerializer()
+
+    class Meta:
+        model = Hero
+        fields = ['title', 'description', 'buttons', 'images', 'logo', 'body_logo']
+
+class DemoFormSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DemoForm
+        fields = ['title', 'description']
+
+class DemoSerializer(serializers.ModelSerializer):
+    form = DemoFormSerializer()
+
+    class Meta:
+        model = Demo
+        fields = ['image', 'title', 'subtitle', 'description', 'form']
+
+class AboutProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AboutProject
+        fields = ['count', 'title']
+
+class AboutUsSerializer(serializers.ModelSerializer):
+    projects = AboutProjectSerializer(many=True)
+
+    class Meta:
+        model = AboutUs
+        fields = ['image', 'title', 'description', 'projects']
+
+class FooterSocialSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FooterSocial
+        fields = ['icon', 'alt', 'link']
+
+class FooterEmailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FooterEmail
+        fields = ['email']
+
+class FooterPhoneSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FooterPhone
+        fields = ['phone']
+
+class FooterSerializer(serializers.ModelSerializer):
+    socials = FooterSocialSerializer(many=True)
+    emails = FooterEmailSerializer(many=True)
+    phones = FooterPhoneSerializer(many=True)
+
+    class Meta:
+        model = Footer
+        fields = ['title', 'description', 'address', 'socials', 'emails', 'phones', 'copyright']
+

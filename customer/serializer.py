@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Customer
+from .models import Customer, Province
 
 
 class CustomerSerializer(serializers.ModelSerializer):
@@ -12,3 +12,10 @@ class CustomerSerializer(serializers.ModelSerializer):
 
     def get_corporate_date(self, obj):
         return obj.persian_corporate_date()
+
+class CustomerProvinceSerializer(serializers.ModelSerializer):
+    customer_count = serializers.IntegerField()
+
+    class Meta:
+        model = Province
+        fields = ['id', 'name', 'customer_count']
