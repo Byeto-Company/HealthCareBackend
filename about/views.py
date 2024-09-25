@@ -100,7 +100,7 @@ class WebsiteContentView(APIView):
             "products": products_serializer.data,
             "managers": managers_serializer.data,
             "certificates": certificates_serializer.data,
-            "customers": customer_serializer.data,
+            "variants": customer_serializer.data,
             "demo": demo_serializer.data,
             "about_us": about_serializer.data,
             "footer": footer_serializer.data,
