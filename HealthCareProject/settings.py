@@ -159,6 +159,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticroot')
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+CORS_ALLOWED_ORIGINS = [
+    "https://hcareapi.liara.run",
+    "http://localhost:8000",
+    "http://localhost:3000",
+]
 
 UNFOLD = {
     "SITE_TITLE": "Health Care API",
