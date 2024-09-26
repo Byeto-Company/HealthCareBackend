@@ -76,12 +76,11 @@ class HeroImageSerializer(serializers.ModelSerializer):
 class HeroSerializer(serializers.ModelSerializer):
     buttons = HeroButtonSerializer(many=True)
     images = HeroImageSerializer(many=True)
-    logo = HeroLogoSerializer()
-    body_logo = HeroBodyLogoSerializer()
+
 
     class Meta:
         model = Hero
-        fields = ['title', 'description', 'buttons', 'images', 'logo', 'body_logo']
+        fields = ['title', 'description', 'buttons', 'images']
 
 class DemoFormSerializer(serializers.ModelSerializer):
     class Meta:

@@ -94,7 +94,16 @@ class WebsiteContentView(APIView):
         footer = Footer.objects.first()  # Assuming one footer
         footer_serializer = FooterSerializer(footer)
 
+        logo = HeroLogo.objects.first()
+        logo_serializer = HeroLogoSerializer(logo)
+
+        body_logo = HeroBodyLogo.objects.first()
+        body_logo_serializer = HeroBodyLogoSerializer(logo)
+
+
         return Response({
+            "logo": logo_serializer.data,
+            "body_logo": body_logo_serializer.data,
             "hero": hero_serializer.data,
             "work_fields": work_fields_serializer.data,
             "products": products_serializer.data,
