@@ -3,7 +3,7 @@ from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from unfold.admin import ModelAdmin
 from unfold.contrib.forms.widgets import ArrayWidget, WysiwygWidget
-from .models import WorkTags, WorkField, Manager, Certificate, Soical, NumberModel, EmailModel
+from .models import *
 
 @admin.register(WorkTags)
 class WorkTagsAdmin(ModelAdmin):
@@ -50,3 +50,68 @@ class NumberModelAdmin(ModelAdmin):
 class EmailModelAdmin(ModelAdmin):
     list_display = ('email', 'ordering',)
     ordering = ('ordering',)
+
+
+@admin.register(Hero)
+class HeroAdmin(ModelAdmin):
+    pass
+
+
+@admin.register(HeroButton)
+class HeroButtonAdmin(ModelAdmin):
+    pass
+
+
+@admin.register(HeroImage)
+class HeroImageAdmin(ModelAdmin):
+    pass
+
+
+@admin.register(HeroLogo)
+class HeroLogoAdmin(ModelAdmin):
+    pass
+
+@admin.register(HeroBodyLogo)
+class HeroBodyLogoAdmin(ModelAdmin):
+    pass
+
+@admin.register(Demo)
+class DemoAdmin(ModelAdmin):
+    pass
+
+
+@admin.register(DemoForm)
+class DemoFormAdmin(ModelAdmin):
+    pass
+
+
+@admin.register(AboutUs)
+class AboutUsAdmin(ModelAdmin):
+    pass
+
+
+@admin.register(AboutProject)
+class AboutProjectAdmin(ModelAdmin):
+    pass
+
+
+@admin.register(Footer)
+class FooterAdmin(ModelAdmin):
+    pass
+
+
+@admin.register(FooterSocial)
+class FooterSocialAdmin(ModelAdmin):
+    pass
+
+
+@admin.register(FooterEmail)
+class FooterEmailAdmin(ModelAdmin):
+    pass
+
+
+@admin.register(FooterPhone)
+class FooterPhoneAdmin(ModelAdmin):
+    pass
+
+
