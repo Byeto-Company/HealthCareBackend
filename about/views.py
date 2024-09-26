@@ -30,27 +30,27 @@ class GetFooterView(APIView):
         return Response(footer_data, status=status.HTTP_200_OK)
 
 
-class GetDataBaseView(APIView):
-    def get(self, request):
-        workfields = WorkField.objects.all()
-        workfield_serilizer = WorkFieldSerializer(instance=workfields, many=True)
-        managers = Manager.objects.all()
-        managers_seriliazer = ManagerSerializer(instance=managers, many=True)
-        certificates = Certificate.objects.all()
-        certificates_seriliazer = CertificateSerializer(instance=certificates, many=True)
-
-        about_data = {
-            "workfields": workfield_serilizer.data,
-            "products" : 'developing',
-            "managers": managers_seriliazer.data,
-            "certificates" : certificates_seriliazer.data,
-            "markaz_darmani_count": Customer.objects.all().count(),
-            "category_project_count": {
-                "some_bullshit_category": "some_bullshit_number its developing "
-            },
-            
-        }
-        return Response(about_data, status=status.HTTP_200_OK)
+# class GetDataBaseView(APIView):
+#     def get(self, request):
+#         workfields = WorkField.objects.all()
+#         workfield_serilizer = WorkFieldSerializer(instance=workfields, many=True)
+#         managers = Manager.objects.all()
+#         managers_seriliazer = ManagerSerializer(instance=managers, many=True)
+#         certificates = Certificate.objects.all()
+#         certificates_seriliazer = CertificateSerializer(instance=certificates, many=True)
+#
+#         about_data = {
+#             "workfields": workfield_serilizer.data,
+#             "products" : 'developing',
+#             "managers": managers_seriliazer.data,
+#             "certificates" : certificates_seriliazer.data,
+#             "markaz_darmani_count": Customer.objects.all().count(),
+#             "category_project_count": {
+#                 "some_bullshit_category": "some_bullshit_number its developing "
+#             },
+#
+#         }
+#         return Response(about_data, status=status.HTTP_200_OK)
 
 
 
@@ -90,7 +90,6 @@ class WebsiteContentView(APIView):
         about_us = AboutUs.objects.first()  # Assuming one about_us
         about_serializer = AboutUsSerializer(about_us)
 
-        # Footer Section
         footer = Footer.objects.first()  # Assuming one footer
         footer_serializer = FooterSerializer(footer)
 
@@ -113,4 +112,4 @@ class WebsiteContentView(APIView):
             "demo": demo_serializer.data,
             "about_us": about_serializer.data,
             "footer": footer_serializer.data,
-        })
+        }, status=status.HTTP_200_OK)
