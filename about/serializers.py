@@ -4,17 +4,24 @@ from .models import *
 class WorkTagSerializer(serializers.ModelSerializer):
     class Meta:
         model = WorkTags
-        fields = '__all__'
+        exclude = ('id',)
         read_only_fields = [id, ]
 
 
 class WorkFieldSerializer(serializers.ModelSerializer):
-    work_tags = WorkTagSerializer(many=True, read_only=True)
+    tags = WorkTagSerializer(many=True, read_only=True)
+    image = serializers.SerializerMethodField()
     class Meta:
         model = WorkField
-        fields = '__all__'
+        exclude = ('id',)
+        
         read_only_fields = [id, ]
-
+    def get_image(self, obj):
+        data = {
+            'image': obj.image.url if obj.image else None,
+            'alt': obj.title
+        }
+        return data
 
 class ManagerSerializer(serializers.ModelSerializer):
     class Meta:
@@ -123,10 +130,17 @@ class FooterPhoneSerializer(serializers.ModelSerializer):
 
 class FooterSerializer(serializers.ModelSerializer):
     socials = FooterSocialSerializer(many=True)
-    emails = FooterEmailSerializer(many=True)
-    phones = FooterPhoneSerializer(many=True)
+    emails = serializers.SerializerMethodField()
+    phones = serializers.SerializerMethodField()
 
     class Meta:
         model = Footer
         fields = ['title', 'description', 'address', 'socials', 'emails', 'phones', 'copyright']
-
+    def get_emails(self, obj):
+        emails = FooterEmail.objects.all()
+        list_emails = [footeremail.email for footeremail in emails]
+        return list_emails
+    def get_phones(self, obj):
+        phones = FooterPhone.objects.all()
+        list_phones = [footerphone.phone for footerphone in phones]
+        return list_phones

@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'HealthCareProject.wsgi.application'
 
 
 
-# private network database
+# public network database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -213,10 +213,59 @@ UNFOLD = {
             },
         },
     },
+
+
+
+
+
     "SIDEBAR": {
-        "show_search": False,
+        "show_search": True,
         "show_all_applications": False,
+        "navigation": [
+            {
+
+                "separator": False,  # Top border
+                "collapsible": False,  # Collapsible group of links
+                "items": [
+                    {
+                        "title": _("Admin Dashboard"),
+                        "icon": "dashboard",  
+                        "link": reverse_lazy("admin:index"),
+                    },
+                ],
+            },
+                {
+                "separator": False,  
+                "collapsible": False, 
+                "title": _("Users"),
+                "items": [
+                    {
+                        "title": _("user"),
+                        "icon": "person",  
+                        "link": reverse_lazy("admin:accounts_user_changelist"),
+                    },
+
+                ],
+            },
+
+
+
+
+
+
+
+
+
+
+
+        
+        ],
     },
+
+
+
+
+
 }
 
 

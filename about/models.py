@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 
 class WorkTags(models.Model):
     title = models.CharField(max_length=100, verbose_name="عنوان")
-
+    link = models.URLField()
     class Meta:
         verbose_name = "برچسب کاری"
         verbose_name_plural = "برچسب‌های کاری"
@@ -16,8 +16,9 @@ class WorkTags(models.Model):
 class WorkField(models.Model):
     title = models.CharField(max_length=100, verbose_name="عنوان حوزه")
     description = models.TextField(verbose_name="توضیحات حوزه")
-    tags = models.ForeignKey(WorkTags, on_delete=models.CASCADE, verbose_name="برچسب‌ها")
+    tags = models.ManyToManyField(WorkTags, verbose_name="برچسب‌ها")
     ordering = models.PositiveIntegerField(unique=True, verbose_name="ترتیب")
+    image = models.ImageField(blank=True, null=True)
     class Meta:
         verbose_name = "حوزه کاری"
         verbose_name_plural = "حوزه‌های کاری"
@@ -29,14 +30,17 @@ class WorkField(models.Model):
         if not (1 <= self.ordering <= 3):
             raise ValidationError("ترتیب باید بین ۱ و ۳ باشد.")
 
-        if self.pk is not None:
-            original = WorkField.objects.get(pk=self.pk)
-            if original.ordering != self.ordering:
-                super().save(*args, **kwargs)
-            else:
-                raise ValidationError("فقط می‌توانید فیلد ترتیب را به‌روزرسانی کنید.")
-        else:
-            super().save(*args, **kwargs)
+
+        # ?
+
+        # if self.pk is not None:
+        #     original = WorkField.objects.get(pk=self.pk)
+        #     if original.ordering != self.ordering:
+        #         super().save(*args, **kwargs)
+        #     else:
+        #         raise ValidationError("فقط می‌توانید فیلد ترتیب را به‌روزرسانی کنید.")
+        # else:  
+        super().save(*args, **kwargs)
 
 
     def __str__(self):
@@ -45,7 +49,7 @@ class WorkField(models.Model):
 
 class Manager(models.Model):
     name = models.CharField(max_length=100, verbose_name="نام مدیر")
-    photo = models.ImageField(upload_to='photos/%Y/%m/%d/', verbose_name="عکس")
+    image = models.ImageField(upload_to='photos/%Y/%m/%d/', verbose_name="عکس")
     description = models.TextField(verbose_name="توضیحات")
     ordering = models.PositiveIntegerField(unique=True, verbose_name="ترتیب")
 

@@ -104,10 +104,22 @@ class WebsiteContentView(APIView):
             "logo": logo_serializer.data,
             "body_logo": body_logo_serializer.data,
             "hero": hero_serializer.data,
-            "work_fields": work_fields_serializer.data,
+            "work_fields": {
+                'title': "place holder title",
+                'description': 'place holder desc',
+                "fields": [work_fields_serializer.data],
+            },
             "products": products_serializer.data,
-            "managers": managers_serializer.data,
-            "certificates": certificates_serializer.data,
+            "leaders": {
+                "title": "place holder title",
+                "description": "place holder desc",
+                'members': [managers_serializer.data]
+            },
+            "certificates": {
+                'title': 'place holder',
+                'description': 'place holder',
+                'items':[certificates_serializer.data]
+                },
             "variants": customer_serializer.data,
             "demo": demo_serializer.data,
             "about_us": about_serializer.data,
