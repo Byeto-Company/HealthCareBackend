@@ -113,12 +113,12 @@ class WebsiteContentView(APIView):
             "leaders": {
                 "title": "place holder title",
                 "description": "place holder desc",
-                'members': [managers_serializer.data]
+                'members': managers_serializer.data
             },
             "certificates": {
                 'title': 'place holder',
                 'description': 'place holder',
-                'items':[certificates_serializer.data]
+                'items':certificates_serializer.data
                 },
             "variants": customer_serializer.data,
             "demo": demo_serializer.data,
