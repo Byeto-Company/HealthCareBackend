@@ -107,7 +107,7 @@ class WebsiteContentView(APIView):
             "work_fields": {
                 'title': "place holder title",
                 'description': 'place holder desc',
-                "fields": [work_fields_serializer.data],
+                "fields": work_fields_serializer.data,
             },
             "products": products_serializer.data,
             "leaders": {
