@@ -82,10 +82,6 @@ class WebsiteContentView(APIView):
         ).filter(customer_count__gt=0)
         customer_serializer = CustomerProvinceSerializer(province_customer_counts, many=True)
 
-        # Demo Section
-        demo = Demo.objects.first()  # Assuming there is only one demo section
-        demo_serializer = DemoSerializer(demo)
-
         # About Us Section
         about_us = AboutUs.objects.first()  # Assuming one about_us
         about_serializer = AboutUsSerializer(about_us)
@@ -120,8 +116,7 @@ class WebsiteContentView(APIView):
                 'description': 'place holder',
                 'items':[certificates_serializer.data]
                 },
-            "variants": customer_serializer.data,
-            "demo": demo_serializer.data,
+            "states": customer_serializer.data,
             "about_us": about_serializer.data,
             "footer": footer_serializer.data,
         }, status=status.HTTP_200_OK)
