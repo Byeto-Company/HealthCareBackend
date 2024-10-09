@@ -16,12 +16,7 @@ class CategoryBreadcrumbSerializer(serializers.ModelSerializer):
             parent = parent.parent
         return ' > '.join(full_path[::-1])
 
-class ProductSerializer(serializers.ModelSerializer):
-    category = CategoryBreadcrumbSerializer()
 
-    class Meta:
-        model = Product
-        fields = ['id', 'name', 'description', 'category', 'product_icon_photo', 'slug']
 
 
 class FeatureSerializer(serializers.ModelSerializer):
@@ -43,16 +38,21 @@ class CapabilitySerializer(serializers.ModelSerializer):
 class SlideSerializer(serializers.ModelSerializer):
     class Meta:
         model = Slide
-        fields = ['image', 'description']
+        fields = ['id', 'image', 'description']
 
+class ProductSerializer(serializers.ModelSerializer):
+    category = CategoryBreadcrumbSerializer()
+    slides_list = SlideSerializer(many=True, read_only=True, source='slides')
 
+    class Meta:
+        model = Product
+        fields = ['id', 'name', 'description', 'category', 'product_icon_photo', 'slug', 'slides_list']
 
 class ProductDetailSerializer(serializers.ModelSerializer):
     features_list = FeatureSerializer(many=True, read_only=True, source='features')
     capability_list = CapabilitySerializer(many=True, read_only=True, source='capability')
-    slides_list = SlideSerializer(many=True, read_only=True, source='slides')
     category = CategoryBreadcrumbSerializer()
 
     class Meta:
         model = Product
-        fields = ['id', 'name', 'slug', 'description', 'category', 'thumbnail', 'features_list', 'capability_list', 'slides_list']
+        fields = ['id', 'name', 'slug', 'description', 'category', 'thumbnail', 'features_list', 'capability_list']

@@ -34,6 +34,8 @@ class Product(models.Model):
     description = models.TextField(verbose_name="توضیحات محصول")
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="دسته‌بندی")
     thumbnail = models.ImageField(upload_to=f'fproduct/main_photos', verbose_name="عکس اصلی")
+    product_icon_photo = models.ImageField(upload_to=f'fproduct/icons', verbose_name='عکس ایکون لیست محصولات')
+
 
     class Meta:
         verbose_name = "محصول"
