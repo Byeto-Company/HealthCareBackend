@@ -23,9 +23,9 @@ class ProductViewSet(ModelViewSet):
 
 
 class ProductDetailView(APIView):
-    def get(self, request, pk, *args, **kwargs):
+    def get(self, request, slug, *args, **kwargs):
         try:
-            product = Product.objects.get(pk=pk)
+            product = Product.objects.get(slug=slug)
         except Product.DoesNotExist:
             return Response({'detail': 'Not found.'}, status=status.HTTP_404_NOT_FOUND)
 
