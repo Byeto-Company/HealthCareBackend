@@ -21,24 +21,38 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ['id', 'name', 'description', 'category', 'product_icon_photo']
+        fields = ['id', 'name', 'description', 'category', 'product_icon_photo', 'slug']
+
 
 class FeatureSerializer(serializers.ModelSerializer):
     class Meta:
         model = Feature
         fields = ['feature_text']
 
-class DetailSerializer(serializers.ModelSerializer):
+    def to_representation(self, instance):
+        return instance.feature_text
+
+class CapabilitySerializer(serializers.ModelSerializer):
     class Meta:
-        model = Detail
+        model = Capability
         fields = ['detail_text']
+
+    def to_representation(self, instance):
+        return instance.detail_text
+
+class SlideSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Slide
+        fields = ['image', 'description']
 
 
 
 class ProductDetailSerializer(serializers.ModelSerializer):
     features_list = FeatureSerializer(many=True, read_only=True, source='features')
-    details_list = DetailSerializer(many=True, read_only=True, source='details')
+    capability_list = CapabilitySerializer(many=True, read_only=True, source='capability')
+    slides_list = SlideSerializer(many=True, read_only=True, source='slides')
     category = CategoryBreadcrumbSerializer()
+
     class Meta:
         model = Product
-        fields = ['id', 'name', 'slug', 'description', 'category', 'main_photo', 'secend_photo', 'product_icon_photo', 'features_list', 'details_list']
+        fields = ['id', 'name', 'slug', 'description', 'category', 'thumbnail', 'features_list', 'capability_list', 'slides_list']
