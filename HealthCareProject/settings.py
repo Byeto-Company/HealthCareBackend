@@ -76,12 +76,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'HealthCareProject.wsgi.application'
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 
 
@@ -91,9 +91,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
         'USER': 'root',
-        'PASSWORD': 'qjAHYTJ1SMD4X8v5jLAEyDoF',
-        'HOST': 'kazbek.liara.cloud',
-        'PORT': '33393',
+        'PASSWORD': 'lCf0RW9MCLXucCz2KbIdXu7j',
+        'HOST': 'apo.liara.cloud',
+        'PORT': '32122',
     }
 }
 
