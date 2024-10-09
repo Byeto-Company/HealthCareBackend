@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .pagination import ProductLimitOffsetPagination
 from rest_framework.views import APIView, Response
 from drf_spectacular.utils import extend_schema, OpenApiParameter
-
+from django.shortcuts import get_object_or_404
 
 class CategoryViewSet(ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
@@ -24,10 +24,7 @@ class ProductViewSet(ModelViewSet):
 
 class ProductDetailView(APIView):
     def get(self, request, slug, *args, **kwargs):
-        try:
-            product = Product.objects.get(slug=slug)
-        except Product.DoesNotExist:
-            return Response({'detail': 'Not found.'}, status=status.HTTP_404_NOT_FOUND)
+        product = get_object_or_404(Product, slug=slug)
 
         serializer = ProductDetailSerializer(product)
         return Response(serializer.data)
