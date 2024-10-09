@@ -1,11 +1,17 @@
+from itertools import product
+
 from django.db import models
 from django.utils.text import slugify
+
 
 class Category(models.Model):
     name = models.CharField(max_length=100, verbose_name="نام")
     description = models.TextField(verbose_name="توضیحات")
-    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children', verbose_name="دسته‌بندی والد")
-    show_count_in_main = models.BooleanField(default=False, verbose_name='نمایش در صفحه ی اصلی', help_text="در صورت روشن بودن این فیلد در پایین صفحه ی خانه تعداد محصولات این دسته بندی نمایش داده میشود ")
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children',
+                               verbose_name="دسته‌بندی والد")
+    show_count_in_main = models.BooleanField(default=False, verbose_name='نمایش در صفحه ی اصلی',
+                                             help_text="در صورت روشن بودن این فیلد در پایین صفحه ی خانه تعداد محصولات این دسته بندی نمایش داده میشود ")
+
     class Meta:
         verbose_name = "دسته‌بندی"
         verbose_name_plural = "دسته‌بندی‌ها"
@@ -19,15 +25,17 @@ class Category(models.Model):
             parent = parent.parent
         return ' > '.join(full_path[::-1])
 
+
 #TODO handle updateing with empty feature and detail
 class Product(models.Model):
     name = models.CharField(max_length=100, verbose_name="نام محصول")
-    slug = models.SlugField(max_length=100, unique=True, blank=True, null=True, allow_unicode=True, verbose_name='نام یکتا')
+    slug = models.SlugField(max_length=100, unique=True, blank=True, null=True, allow_unicode=True,
+                            verbose_name='نام یکتا')
     description = models.TextField(verbose_name="توضیحات محصول")
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="دسته‌بندی")
-    main_photo = models.ImageField(upload_to=f'fproduct/main_photos', verbose_name="عکس اصلی")  
-    secend_photo = models.ImageField(upload_to=f'fproduct/secend_photos', verbose_name='عکس دوم صفحه ی محصولات')
+    thumbnail = models.ImageField(upload_to=f'fproduct/main_photos', verbose_name="عکس اصلی")
     product_icon_photo = models.ImageField(upload_to=f'fproduct/icons', verbose_name='عکس ایکون لیست محصولات')
+
 
     class Meta:
         verbose_name = "محصول"
@@ -51,16 +59,26 @@ class Product(models.Model):
         return slug
 
 
-class Detail(models.Model):
-    product = models.ForeignKey(Product, related_name='details', on_delete=models.CASCADE, verbose_name='محصول')
-    detail_text = models.CharField(max_length=100, verbose_name='متن جزیات', blank=True)
+class Slide(models.Model):
+    product = models.ForeignKey(Product, related_name='slides', on_delete=models.CASCADE, verbose_name='محصول')
+    image = models.ImageField(upload_to="product_slides/", verbose_name="تصویر")
+    description = models.TextField(verbose_name="توضیحات")
+
+    def __str__(self):
+        return self.product.name + self.image.name
+
+
+class Capability(models.Model):
+    product = models.ForeignKey(Product, related_name='capability', on_delete=models.CASCADE, verbose_name='محصول')
+    detail_text = models.CharField(max_length=100, verbose_name='قابلیت', blank=True)
 
     class Meta:
-        verbose_name = "جز"
-        verbose_name_plural = "جزیات"
+        verbose_name = "قابلیت"
+        verbose_name_plural = "قابلیت ها"
 
     def __str__(self):
         return f"{self.product}: {self.detail_text[:30]}"
+
 
 class Feature(models.Model):
     product = models.ForeignKey(Product, related_name='features', on_delete=models.CASCADE, verbose_name='محصول')
@@ -72,5 +90,3 @@ class Feature(models.Model):
 
     def __str__(self):
         return f"{self.product}: {self.feature_text[:30]}"
-    
-    

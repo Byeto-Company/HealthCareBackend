@@ -82,10 +82,6 @@ class WebsiteContentView(APIView):
         ).filter(customer_count__gt=0)
         customer_serializer = CustomerProvinceSerializer(province_customer_counts, many=True)
 
-        # Demo Section
-        demo = Demo.objects.first()  # Assuming there is only one demo section
-        demo_serializer = DemoSerializer(demo)
-
         # About Us Section
         about_us = AboutUs.objects.first()  # Assuming one about_us
         about_serializer = AboutUsSerializer(about_us)
@@ -93,11 +89,14 @@ class WebsiteContentView(APIView):
         footer = Footer.objects.first()  # Assuming one footer
         footer_serializer = FooterSerializer(footer)
 
+        demo = Demo.objects.first()
+        demo_serializer = DemoSerializer(demo)
+
         logo = HeroLogo.objects.first()
         logo_serializer = HeroLogoSerializer(logo)
 
         body_logo = HeroBodyLogo.objects.first()
-        body_logo_serializer = HeroBodyLogoSerializer(logo)
+        body_logo_serializer = HeroBodyLogoSerializer(body_logo)
 
 
         return Response({
@@ -110,6 +109,7 @@ class WebsiteContentView(APIView):
                 "fields": work_fields_serializer.data,
             },
             "products": products_serializer.data,
+
             "leaders": {
                 "title": "place holder title",
                 "description": "place holder desc",
@@ -120,8 +120,8 @@ class WebsiteContentView(APIView):
                 'description': 'place holder',
                 'items':certificates_serializer.data
                 },
-            "variants": customer_serializer.data,
-            "demo": demo_serializer.data,
+            "states": customer_serializer.data,
             "about_us": about_serializer.data,
+            "demo": demo_serializer.data,
             "footer": footer_serializer.data,
         }, status=status.HTTP_200_OK)
