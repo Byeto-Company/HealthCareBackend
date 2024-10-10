@@ -11,12 +11,15 @@ class CategoryBreadcrumbSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'breadcrumb']
 
     def get_breadcrumb(self, obj):
-        full_path = [obj.name]
+        full_path = [
+            obj.name,
+        ]
         parent = obj.parent
         while parent is not None:
-            full_path.append(parent.name)
+            full_path.append(f"parent_name: {parent.name},"
+                             f"parent_slug: {parent.slug},")
             parent = parent.parent
-        return ' > '.join(full_path[::-1])
+        return ', '.join(full_path[::-1])
 
 
 
@@ -59,16 +62,29 @@ class CategoriesSerializer(serializers.ModelSerializer):
     product_list = serializers.SerializerMethodField()
     class Meta:
         model = Category
-        fields = ['id', 'name', 'product_list']
+        fields = ['id', 'name', 'slug', 'product_list']
     def get_product_list(self, obj):
         product = Product.objects.filter(category=obj.id)
         return ProductSerializer1(product, many=True).data
+
+class ProductCategoriesSerializer(serializers.ModelSerializer):
+    parent = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Category
+        fields = ['id', 'name', 'slug', 'parent']
+
+    def get_parent(self, obj):
+        # Avoid deep recursion by limiting the depth to one level of parent
+        if obj.parent:
+            return {'id': obj.parent.id, 'name': obj.parent.name, 'slug': obj.parent.slug}
+        return None
 
 class ProductDetailSerializer(serializers.ModelSerializer):
     categories = serializers.SerializerMethodField()
     features_list = FeatureSerializer(many=True, read_only=True, source='features')
     capability_list = CapabilitySerializer(many=True, read_only=True, source='capability')
-    category = CategoryBreadcrumbSerializer()
+    category = ProductCategoriesSerializer()
 
     class Meta:
         model = Product

@@ -9,6 +9,8 @@ class Category(models.Model):
     description = models.TextField(verbose_name="توضیحات")
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children',
                                verbose_name="دسته‌بندی والد")
+    slug = models.SlugField(max_length=100, unique=True, blank=True, null=True, allow_unicode=True,
+                            verbose_name='نام یکتا')
     show_count_in_main = models.BooleanField(default=False, verbose_name='نمایش در صفحه ی اصلی',
                                              help_text="در صورت روشن بودن این فیلد در پایین صفحه ی خانه تعداد محصولات این دسته بندی نمایش داده میشود ")
 
@@ -17,13 +19,27 @@ class Category(models.Model):
         verbose_name_plural = "دسته‌بندی‌ها"
 
     def __str__(self):
-        # Return the full breadcrumb path for the category
-        full_path = [self.name]
-        parent = self.parent
-        while parent is not None:
-            full_path.append(parent.name)
-            parent = parent.parent
-        return ' > '.join(full_path[::-1])
+        if self.slug:
+            return self.slug
+        else:
+            return self.name
+
+    def save(self, *args, **kwargs):
+        if self.parent and self.parent == self:
+            raise ValueError("A category cannot be its own parent")
+        if not self.slug:
+            self.slug = self._slug_generate()
+
+        super().save(*args, **kwargs)
+
+    def _slug_generate(self):
+        initial_slug = slugify(self.name)
+        slug = initial_slug
+        count = 1
+        while Category.objects.filter(slug=slug).exists():
+            slug = f"{initial_slug}-{count}"
+            count += 1
+        return  slug
 
 
 #TODO handle updateing with empty feature and detail
