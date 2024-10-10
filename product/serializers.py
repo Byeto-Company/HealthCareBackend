@@ -3,25 +3,26 @@ from unicodedata import category
 from rest_framework import serializers
 from .models import *
 
-class CategoryBreadcrumbSerializer(serializers.ModelSerializer):
-    breadcrumb = serializers.SerializerMethodField()
+class CategoryProductsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ('id', 'name', 'slug', 'thumbnail')
 
+class CategoryBreadcrumbSerializer(serializers.ModelSerializer):
+    products = serializers.SerializerMethodField()
+    subcategories = serializers.SerializerMethodField()
     class Meta:
         model = Category
-        fields = ['id', 'name', 'breadcrumb']
+        fields = ['id', 'name', 'slug', 'products', 'subcategories']
 
-    def get_breadcrumb(self, obj):
-        full_path = [
-            obj.name,
-        ]
-        parent = obj.parent
-        while parent is not None:
-            full_path.append(f"parent_name: {parent.name},"
-                             f"parent_slug: {parent.slug},")
-            parent = parent.parent
-        return ', '.join(full_path[::-1])
-
-
+    def get_products(self, obj):
+        products = Product.objects.filter(category=obj)
+        return CategoryProductsSerializer(products, many=True).data
+    def get_subcategories(self, obj):
+        subcategories = obj.children.all()
+        if subcategories.exists():
+            return CategoryBreadcrumbSerializer(subcategories, many=True).data
+        return []
 
 
 class FeatureSerializer(serializers.ModelSerializer):
@@ -45,13 +46,6 @@ class SlideSerializer(serializers.ModelSerializer):
         model = Slide
         fields = ['id', 'image', 'description']
 
-class ProductSerializer(serializers.ModelSerializer):
-    category = CategoryBreadcrumbSerializer()
-    slides_list = SlideSerializer(many=True, read_only=True, source='slides')
-
-    class Meta:
-        model = Product
-        fields = ['id', 'name', 'description', 'category', 'product_icon_photo', 'slug', 'slides_list']
 
 class ProductSerializer1(serializers.ModelSerializer):
     class Meta:
@@ -75,7 +69,6 @@ class ProductCategoriesSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'slug', 'parent']
 
     def get_parent(self, obj):
-        # Avoid deep recursion by limiting the depth to one level of parent
         if obj.parent:
             return {'id': obj.parent.id, 'name': obj.parent.name, 'slug': obj.parent.slug}
         return None
@@ -95,3 +88,13 @@ class ProductDetailSerializer(serializers.ModelSerializer):
         categories = Category.objects.all()
         return CategoriesSerializer(categories, many=True).data
 
+class ProductSerializer(serializers.ModelSerializer):
+    category = ProductCategoriesSerializer()
+    slides_list = SlideSerializer(many=True, read_only=True, source='slides')
+
+    class Meta:
+        model = Product
+        fields = ['id', 'name', 'description', 'category', 'product_icon_photo', 'slug', 'slides_list']
+    def get_categories(self, obj):
+        categories = Category.objects.all()
+        return CategoriesSerializer(categories, many=True).data
