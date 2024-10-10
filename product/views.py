@@ -1,3 +1,5 @@
+from unicodedata import category
+
 from .serializers import *
 from .models import Product, Category
 from rest_framework.viewsets import ModelViewSet
@@ -45,3 +47,4 @@ class ProductListView(APIView):
         page = paginator.paginate_queryset(queryset, request)
         serializer = self.serializer_class(page, many=True)
         return paginator.get_paginated_response(serializer.data)
+
