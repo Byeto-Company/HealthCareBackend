@@ -79,7 +79,7 @@ class WebsiteContentView(APIView):
         # Customers Section
         province_customer_counts = Province.objects.annotate(
             customer_count=Count('customer')
-        ).filter(customer_count__gt=0)
+        )
         customer_serializer = CustomerProvinceSerializer(province_customer_counts, many=True)
 
         # About Us Section
