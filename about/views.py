@@ -112,7 +112,7 @@ class WebsiteContentView(APIView):
             "body_logo": body_logo_serializer.data,
             "hero": hero_serializer.data,
             "work_fields": {
-                'tnd': work_title_serializer,
+                'tnd': work_title_serializer.data,
                 "fields": work_fields_serializer.data,
             },
             "products": products_serializer.data,
