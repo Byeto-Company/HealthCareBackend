@@ -1,81 +1,130 @@
 from django.contrib import admin
-from .models import (
-    WorkTags,
-    WorkField,
-    WorkTitle,
-    Manager,
-    ManagerTitle,
-    Certificate,
-    CertificateTitle,
-    Soical,
-    NumberModel,
-    EmailModel,
-    Hero,
-    HeroButton,
-    HeroImage,
-    HeroLogo,
-    HeroBodyLogo,
-    Demo,
-    DemoForm,
-    AboutUs,
-    AboutProject,
-    Footer,
-    FooterSocial,
-    FooterEmail,
-    FooterPhone,
-)
+from django.contrib.postgres.fields import ArrayField
+from django.db import models
+from unfold.admin import ModelAdmin
+from unfold.contrib.forms.widgets import ArrayWidget, WysiwygWidget
+from .models import *
 
-class WorkTitleInline(admin.TabularInline):
-    model = WorkTitle
-    extra = 1  # Number of empty forms to display
+@admin.register(WorkTags)
+class WorkTagsAdmin(ModelAdmin):
+    list_display = ('title',)
+    search_fields = ('title',)
+    ordering = ('title',)
 
-class WorkFieldAdmin(admin.ModelAdmin):
-    inlines = [WorkTitleInline]
+@admin.register(WorkField)
+class WorkFieldAdmin(ModelAdmin):
+    list_display = ('title', 'ordering',)
+    search_fields = ('title',)
+    ordering = ('ordering',)
 
-class ManagerTitleInline(admin.TabularInline):
-    model = ManagerTitle
-    extra = 1
+    formfield_overrides = {
+        models.TextField: {
+            "widget": WysiwygWidget,
+        }
+    }
 
-class ManagerAdmin(admin.ModelAdmin):
-    inlines = [ManagerTitleInline]
+@admin.register(Manager)
+class ManagerAdmin(ModelAdmin):
+    list_display = ('name', 'ordering',)
+    search_fields = ('name',)
+    ordering = ('ordering',)
 
-class CertificateTitleInline(admin.TabularInline):
-    model = CertificateTitle
-    extra = 1
+@admin.register(Certificate)
+class CertificateAdmin(ModelAdmin):
+    list_display = ('title',)
+    search_fields = ('title',)
+    ordering = ('title',)
 
-class CertificateAdmin(admin.ModelAdmin):
-    inlines = [CertificateTitleInline]
+@admin.register(Soical)
+class SoicalAdmin(ModelAdmin):
+    list_display = ('soical', 'link',)
+    search_fields = ('soical',)
+    ordering = ('soical',)
 
-class FooterSocialInline(admin.TabularInline):
-    model = FooterSocial
-    extra = 1
+@admin.register(NumberModel)
+class NumberModelAdmin(ModelAdmin):
+    list_display = ('number', 'ordering',)
+    ordering = ('ordering',)
 
-class FooterEmailInline(admin.TabularInline):
-    model = FooterEmail
-    extra = 1
+@admin.register(EmailModel)
+class EmailModelAdmin(ModelAdmin):
+    list_display = ('email', 'ordering',)
+    ordering = ('ordering',)
 
-class FooterPhoneInline(admin.TabularInline):
-    model = FooterPhone
-    extra = 1
 
-class FooterAdmin(admin.ModelAdmin):
-    inlines = [FooterSocialInline, FooterEmailInline, FooterPhoneInline]
+@admin.register(Hero)
+class HeroAdmin(ModelAdmin):
+    pass
 
-# Register models with admin
-admin.site.register(WorkTags)
-admin.site.register(WorkField, WorkFieldAdmin)
-admin.site.register(Manager, ManagerAdmin)
-admin.site.register(Certificate, CertificateAdmin)
-admin.site.register(Soical)
-admin.site.register(NumberModel)
-admin.site.register(EmailModel)
-admin.site.register(Hero)
-admin.site.register(HeroButton)
-admin.site.register(HeroImage)
-admin.site.register(HeroLogo)
-admin.site.register(HeroBodyLogo)
-admin.site.register(Demo)
-admin.site.register(DemoForm)
-admin.site.register(AboutUs)
-admin.site.register(AboutProject)
-admin.site.register(Footer, FooterAdmin)
+
+@admin.register(HeroButton)
+class HeroButtonAdmin(ModelAdmin):
+    pass
+
+
+@admin.register(HeroImage)
+class HeroImageAdmin(ModelAdmin):
+    pass
+
+
+@admin.register(HeroLogo)
+class HeroLogoAdmin(ModelAdmin):
+    pass
+
+@admin.register(HeroBodyLogo)
+class HeroBodyLogoAdmin(ModelAdmin):
+    pass
+
+@admin.register(Demo)
+class DemoAdmin(ModelAdmin):
+    pass
+
+
+@admin.register(DemoForm)
+class DemoFormAdmin(ModelAdmin):
+    pass
+
+
+@admin.register(AboutUs)
+class AboutUsAdmin(ModelAdmin):
+    pass
+
+
+@admin.register(AboutProject)
+class AboutProjectAdmin(ModelAdmin):
+    pass
+
+
+@admin.register(Footer)
+class FooterAdmin(ModelAdmin):
+    pass
+
+
+@admin.register(FooterSocial)
+class FooterSocialAdmin(ModelAdmin):
+    pass
+
+
+@admin.register(FooterEmail)
+class FooterEmailAdmin(ModelAdmin):
+    pass
+
+
+@admin.register(FooterPhone)
+class FooterPhoneAdmin(ModelAdmin):
+    pass
+
+
+@admin.register(CertificateTitle)
+class CertificateTitleAdmin(ModelAdmin):
+    pass
+
+
+@admin.register(WorkTitle)
+class WorkTitleAdmin(ModelAdmin):
+    pass
+@admin.register(ManagerTitle)
+class ManagerTitleAdmin(ModelAdmin):
+    pass
+
+
