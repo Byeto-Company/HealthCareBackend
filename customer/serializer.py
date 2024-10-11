@@ -18,4 +18,4 @@ class CustomerProvinceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Province
-        fields = ['id', 'name', 'customer_count']
+        fields = ['id', 'name','customer_count']
