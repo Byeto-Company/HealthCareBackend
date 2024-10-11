@@ -7,11 +7,13 @@ from django.utils.translation import gettext_lazy as _
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+#TODO
 SECRET_KEY = 'django-insecure-*%7xn10@%!n8o7agwc+m$%vx7-=g^oj!1$3y#0+aa+6rsy=$^p'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+#TODO
 DEBUG = True
-
+#TODO
 ALLOWED_HOSTS = []
 
 # Application definition
@@ -76,15 +78,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'HealthCareProject.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
 
-
+#TODO
 # public network database
 DATABASES = {
     'default': {
@@ -137,7 +133,7 @@ REST_FRAMEWORK = {
 }
 
 AUTH_USER_MODEL = 'accounts.User'
-
+#TODO 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=5000),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=5000),
@@ -158,7 +154,7 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticroot')
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
+#TODO
 CORS_ALLOWED_ORIGINS = [
     "https://hcareapi.liara.run",
     "http://localhost:8000",
@@ -168,8 +164,9 @@ CORS_ALLOWED_ORIGINS = [
 UNFOLD = {
     "SITE_TITLE": "Health Care API",
     "SITE_HEADER": "Health Care API",
+    #TODO url
     "SITE_URL": "/",
-    "SITE_SYMBOL": "speed",
+    "SITE_SYMBOL": "clinical_notes",
     "SITE_FAVICONS": [
         {
             "rel": "icon",
@@ -181,7 +178,7 @@ UNFOLD = {
     "SHOW_HISTORY": True,
     "SHOW_VIEW_ON_SITE": True,
     "ENVIRONMENT": "HealthCareProject.settings.environment_callback",
-    "THEME": "dark",
+    "THEME": "light",
 
     "COLORS": {
         "font": {
@@ -228,7 +225,7 @@ UNFOLD = {
                 "collapsible": False,  # Collapsible group of links
                 "items": [
                     {
-                        "title": _("Admin Dashboard"),
+                        "title": _("داشبرد ادمین"),
                         "icon": "dashboard",  
                         "link": reverse_lazy("admin:index"),
                     },
@@ -237,28 +234,98 @@ UNFOLD = {
                 {
                 "separator": False,  
                 "collapsible": False, 
-                "title": _("Users"),
                 "items": [
                     {
-                        "title": _("user"),
+                        "title": _("کاربران"),
                         "icon": "person",  
                         "link": reverse_lazy("admin:accounts_user_changelist"),
                     },
 
                 ],
             },
+                {
+                "separator": True,  
+                "collapsible": True, 
+                "title": _("محصول و دسته بندی"),
+                "items": [
+                    {
+                        "title": _("محصولات"),
+                        "icon": "display_settings",  
+                        "link": reverse_lazy("admin:product_product_changelist"),
+                    },
+                    {
+                        "title": _("دسته بندی محصولات"),
+                        "icon": "category",  
+                        "link": reverse_lazy("admin:product_category_changelist"),
+                    },
+                ],
+            },
+
+                {
+                "separator": True,  
+                "collapsible": True, 
+                "title": _("تیکت ها"),
+                "items": [
+                    {
+                        "title": _("تماس‌های دریافت‌شده"),
+                        "icon": "contacts",  
+                        "link": reverse_lazy("admin:ticket_contactus_changelist"),
+                    },
+                    {
+                        "title": _("درخواست دمو"),
+                        "icon": "handshake",  
+                        "link": reverse_lazy("admin:ticket_requestdemo_changelist"),
+                    },
+                ],
+            },
+
+            {
+                "separator": True,  
+                "collapsible": True, 
+                "title": _("بخش مشتریان"),
+                "items": [
+                    {
+                        "title": _("مشتریان"),
+                        "icon": "partner_exchange",  
+                        "link": reverse_lazy("admin:customer_customer_changelist"),
+                    },
+                    {
+                        "title": _("شهر ها"),
+                        "icon": "map",  
+                        "link": reverse_lazy("admin:customer_city_changelist"),
+                    },
+                ],
+            },
 
 
+            {
+                "separator": True,  
+                "collapsible": True, 
+                "title": _("بخش فوتر"),
+                "items": [
+                    {
+                        "title": _("فوتر"),
+                        "icon": "stacked_inbox",  
+                        "link": reverse_lazy("admin:about_footer_changelist"),
+                    },
+                ],
+            },
 
 
+            {
+                "separator": True,  
+                "collapsible": True, 
+                "title": _("دیتا های سایت"),
+                "items": [
+                    {
+                        "title": _("فوتر"),
+                        "icon": "stacked_inbox",  
+                        "link": reverse_lazy("admin:about_footer_changelist"),
+                    },
+                ],
+            },
 
 
-
-
-
-
-
-        
         ],
     },
 
@@ -272,7 +339,7 @@ UNFOLD = {
 
 
 def environment_callback(request):
-    return ["Development", "warning"]
+    return ["توسعه", "warning"]
 
 
 def badge_callback(request):
