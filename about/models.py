@@ -64,14 +64,14 @@ class Manager(models.Model):
         if not (1 <= self.ordering <= 5):
             raise ValidationError("ترتیب باید بین ۱ و ۵ باشد.")
 
-        if self.pk is not None:
-            original = Manager.objects.get(pk=self.pk)
-            if original.ordering != self.ordering:
-                super().save(*args, **kwargs)
-            else:
-                raise ValidationError("فقط می‌توانید فیلد ترتیب را به‌روزرسانی کنید.")
-        else:
-            super().save(*args, **kwargs)
+        # if self.pk is not None:
+        #     original = Manager.objects.get(pk=self.pk)
+        #     if original.ordering != self.ordering:
+        #         super().save(*args, **kwargs)
+        #     else:
+        #         raise ValidationError("فقط می‌توانید فیلد ترتیب را به‌روزرسانی کنید.")
+        # else:
+        super().save(*args, **kwargs)
 
     # def delete(self, *args, **kwargs):
     #     raise ValidationError("حذف نمونه‌های مدیر مجاز نیست.")
