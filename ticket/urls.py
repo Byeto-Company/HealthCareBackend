@@ -5,8 +5,8 @@ from . import views
 
 
 urlpatterns = [
-    path('request-demo/', views.RequestDemoAPIView.as_view(), name='request-demo'),
-    path('contact-us/', views.ContactUsAPIView.as_view(), name='contact-us'),
+    path('request-demo', views.RequestDemoAPIView.as_view(), name='request-demo'),
+    path('contact-us', views.ContactUsAPIView.as_view(), name='contact-us'),
 ]
 
 # router = DefaultRouter()
