@@ -112,17 +112,20 @@ class WebsiteContentView(APIView):
             "body_logo": body_logo_serializer.data,
             "hero": hero_serializer.data,
             "work_fields": {
-                'tnd': work_title_serializer.data,
+                "title": work_title.title,
+                "description": work_title.description,
                 "fields": work_fields_serializer.data,
             },
             "products": products_serializer.data,
 
-            "leaders": {
-                "tnd": manager_title_serializer.data,
+            "leaders":{
+                'title': manager_title.title,
+                'description': manager_title.description,
                 'members': managers_serializer.data
             },
-            "certificates": {
-                'tnd': certificate_title_serializer.data,
+            "certificates":{
+                'title': certificate_title.title,
+                'description': certificate_title.description,
                 'items':certificates_serializer.data
                 },
             "states": customer_serializer.data,
