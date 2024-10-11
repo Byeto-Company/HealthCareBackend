@@ -47,6 +47,12 @@ class WorkField(models.Model):
         return self.title
 
 
+class WorkTitle(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    work_field = models.ForeignKey(WorkField, on_delete=models.CASCADE)
+
+
 class Manager(models.Model):
     name = models.CharField(max_length=100, verbose_name="نام مدیر")
     image = models.ImageField(upload_to='photos/%Y/%m/%d/', verbose_name="عکس")
@@ -79,6 +85,11 @@ class Manager(models.Model):
     def __str__(self):
         return self.name
 
+class ManagerTitle(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    managers = models.ForeignKey(Manager, on_delete=models.CASCADE)
+
 
 class Certificate(models.Model):
     image = models.ImageField(upload_to='photos/certificates/%Y/%m/%d/', verbose_name="عکس گواهینامه")
@@ -92,6 +103,11 @@ class Certificate(models.Model):
     def __str__(self):
         return self.title
 
+
+class CertificateTitle(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    certificate = models.ForeignKey(Certificate, on_delete=models.CASCADE)
 
 
 class Soical(models.Model):

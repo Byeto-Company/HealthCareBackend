@@ -144,3 +144,18 @@ class FooterSerializer(serializers.ModelSerializer):
         phones = FooterPhone.objects.all()
         list_phones = [footerphone.phone for footerphone in phones]
         return list_phones
+
+class WorkTitleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WorkTitle
+        fields = ['title', 'description']
+
+class ManagerTitleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ManagerTitle
+        fields = ['title', 'description']
+
+class CertificateTitleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CertificateTitle
+        fields = ['title', 'description']

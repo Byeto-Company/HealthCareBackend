@@ -1,13 +1,23 @@
-from rest_framework import viewsets
-from .models import RequestDemo, ContactUs
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.views import APIView
+from .models import RequestDemo
 from .serializers import RequestDemoSerializer, ContactUsSerializer
 
 
-class RequestDemoViewSet(viewsets.ModelViewSet):
-    queryset = RequestDemo.objects.all()
-    serializer_class = RequestDemoSerializer
+class RequestDemoAPIView(APIView):
+    def post(self, request, *args, **kwargs):
+        serializer = RequestDemoSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class ContactUsViewSet(viewsets.ModelViewSet):
-    queryset = ContactUs.objects.all()
-    serializer_class = ContactUsSerializer
+class ContactUsAPIView(APIView):
+    def post(self, request, *args, **kwargs):
+        serializer = ContactUsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
