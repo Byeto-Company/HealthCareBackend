@@ -115,3 +115,16 @@ class FooterPhoneAdmin(ModelAdmin):
     pass
 
 
+@admin.register(CertificateTitle)
+class CertificateTitleAdmin(ModelAdmin):
+    pass
+
+
+@admin.register(WorkTitle)
+class WorkTitleAdmin(ModelAdmin):
+    pass
+@admin.register(ManagerTitle)
+class ManagerTitleAdmin(ModelAdmin):
+    pass
+
+
