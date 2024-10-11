@@ -98,26 +98,31 @@ class WebsiteContentView(APIView):
         body_logo = HeroBodyLogo.objects.first()
         body_logo_serializer = HeroBodyLogoSerializer(body_logo)
 
+        work_title = WorkTitle.objects.first()
+        work_title_serializer = WorkTitleSerializer(work_title)
+
+        manager_title = ManagerTitle.objects.first()
+        manager_title_serializer = ManagerTitleSerializer(manager_title)
+
+        certificate_title = CertificateTitle.objects.first()
+        certificate_title_serializer = CertificateTitleSerializer(certificate_title)
 
         return Response({
             "logo": logo_serializer.data,
             "body_logo": body_logo_serializer.data,
             "hero": hero_serializer.data,
             "work_fields": {
-                'title': "place holder title",
-                'description': 'place holder desc',
+                'tnd': work_title_serializer,
                 "fields": work_fields_serializer.data,
             },
             "products": products_serializer.data,
 
             "leaders": {
-                "title": "place holder title",
-                "description": "place holder desc",
+                "tnd": manager_title_serializer.data,
                 'members': managers_serializer.data
             },
             "certificates": {
-                'title': 'place holder',
-                'description': 'place holder',
+                'tnd': certificate_title_serializer.data,
                 'items':certificates_serializer.data
                 },
             "states": customer_serializer.data,
