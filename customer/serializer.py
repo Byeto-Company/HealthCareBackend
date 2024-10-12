@@ -14,9 +14,9 @@ class CustomerSerializer(serializers.ModelSerializer):
     def get_corporate_date(self, obj):
         return obj.persian_corporate_date()
     def get_city(self, obj):
-        return obj.city
+        return obj.city.name
     def get_province(self, obj):
-        return obj.province
+        return obj.province.name
 
 class CustomerProvinceSerializer(serializers.ModelSerializer):
     customer_count = serializers.IntegerField()

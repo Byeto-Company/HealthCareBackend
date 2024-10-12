@@ -5,19 +5,38 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from django.http import JsonResponse
 from .models import City
 from rest_framework import viewsets
+from rest_framework.views import APIView
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.db.models import Count
 from .models import Customer
+from rest_framework import status
 
 
-class CustomerViewSet(ModelViewSet):
-    permission_classes = [IsAuthenticatedOrReadOnly]
-    queryset = Customer.objects.all()
+# class CustomerViewSet(ModelViewSet):
+#     permission_classes = [IsAuthenticatedOrReadOnly]
+#     queryset = Customer.objects.all()
+#     serializer_class = CustomerSerializer
+#     pagination_class = CustomerLimitOffsetPagination
+#     partial_update = None
+
+class CustomerGetView(APIView):
     serializer_class = CustomerSerializer
-    pagination_class = CustomerLimitOffsetPagination
-    partial_update = None
+    def get(self, request):
+        customers = Customer.objects.all()
+        customers_ser = CustomerSerializer(instance=customers, many=True)
+        return Response(customers_ser.data, status=status.HTTP_200_OK)
 
+
+class CustomerCreateView(APIView):
+    serializer_class = CustomerSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    def post(self, request):
+        customer_ser = CustomerSerializer(data=request.data)
+        if customer_ser.is_valid():
+            customer_ser.save()
+            return Response(customer_ser.data, status=status.HTTP_201_CREATED)
+        return Response(customer_ser.errors, status=status.HTTP_400_BAD_REQUEST)
 
 def get_cities(request):
     province_id = request.GET.get('province')
