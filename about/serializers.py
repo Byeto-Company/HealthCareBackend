@@ -104,7 +104,7 @@ class DemoSerializer(serializers.ModelSerializer):
 class AboutProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = AboutProject
-        fields = ['count', 'title']
+        fields = ['title', 'description']
 
 class AboutUsSerializer(serializers.ModelSerializer):
     projects = AboutProjectSerializer(many=True)
