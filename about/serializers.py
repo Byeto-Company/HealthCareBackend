@@ -93,7 +93,7 @@ class AboutUsSerializer(serializers.ModelSerializer):
 class FooterSocialSerializer(serializers.ModelSerializer):
     class Meta:
         model = FooterSocial
-        fields = ['icon', 'alt', 'link']
+        fields = ['social', 'link']
 
 class FooterEmailSerializer(serializers.ModelSerializer):
     class Meta:
