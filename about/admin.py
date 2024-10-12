@@ -5,17 +5,80 @@ from unfold.admin import ModelAdmin
 from unfold.contrib.forms.widgets import ArrayWidget, WysiwygWidget
 from .models import *
 
+# Inline classes for related models
+class WorkTitleInline(admin.TabularInline):
+    model = WorkTitle
+    extra = 1  # Number of empty forms to display
+
+
+class ManagerTitleInline(admin.TabularInline):
+    model = ManagerTitle
+    extra = 1  # Number of empty forms to display
+
+
+class CertificateTitleInline(admin.TabularInline):
+    model = CertificateTitle
+    extra = 1  # Number of empty forms to display
+
+
+class HeroButtonInline(admin.TabularInline):
+    model = HeroButton
+    extra = 1  # Number of empty forms to display
+
+
+class HeroImageInline(admin.TabularInline):
+    model = HeroImage
+    extra = 1  # Number of empty forms to display
+
+
+class HeroLogoInline(admin.TabularInline):
+    model = HeroLogo
+    extra = 1  # Number of empty forms to display
+
+
+class HeroBodyLogoInline(admin.TabularInline):
+    model = HeroBodyLogo
+    extra = 1  # Number of empty forms to display
+
+
+class DemoFormInline(admin.TabularInline):
+    model = DemoForm
+    extra = 1
+
+
+class AboutProjectInline(admin.TabularInline):
+    model = AboutProject
+    extra = 1
+
+
+class FooterSocialInline(admin.TabularInline):
+    model = FooterSocial
+    extra = 1
+
+
+class FooterEmailInline(admin.TabularInline):
+    model = FooterEmail
+    extra = 1
+
+
+class FooterPhoneInline(admin.TabularInline):
+    model = FooterPhone
+    extra = 1
+
+
 @admin.register(WorkTags)
 class WorkTagsAdmin(ModelAdmin):
     list_display = ('title',)
     search_fields = ('title',)
     ordering = ('title',)
 
+
 @admin.register(WorkField)
 class WorkFieldAdmin(ModelAdmin):
     list_display = ('title', 'ordering',)
     search_fields = ('title',)
     ordering = ('ordering',)
+    inlines = [WorkTitleInline]
 
     formfield_overrides = {
         models.TextField: {
@@ -23,17 +86,22 @@ class WorkFieldAdmin(ModelAdmin):
         }
     }
 
+
 @admin.register(Manager)
 class ManagerAdmin(ModelAdmin):
     list_display = ('name', 'ordering',)
     search_fields = ('name',)
     ordering = ('ordering',)
+    inlines = [ManagerTitleInline]
+
 
 @admin.register(Certificate)
 class CertificateAdmin(ModelAdmin):
     list_display = ('title',)
     search_fields = ('title',)
     ordering = ('title',)
+    inlines = [CertificateTitleInline]
+
 
 @admin.register(Soical)
 class SoicalAdmin(ModelAdmin):
@@ -41,10 +109,12 @@ class SoicalAdmin(ModelAdmin):
     search_fields = ('soical',)
     ordering = ('soical',)
 
+
 @admin.register(NumberModel)
 class NumberModelAdmin(ModelAdmin):
     list_display = ('number', 'ordering',)
     ordering = ('ordering',)
+
 
 @admin.register(EmailModel)
 class EmailModelAdmin(ModelAdmin):
@@ -54,65 +124,23 @@ class EmailModelAdmin(ModelAdmin):
 
 @admin.register(Hero)
 class HeroAdmin(ModelAdmin):
-    pass
+    inlines = [HeroButtonInline, HeroImageInline, HeroLogoInline, HeroBodyLogoInline]
 
-
-@admin.register(HeroButton)
-class HeroButtonAdmin(ModelAdmin):
-    pass
-
-
-@admin.register(HeroImage)
-class HeroImageAdmin(ModelAdmin):
-    pass
-
-
-@admin.register(HeroLogo)
-class HeroLogoAdmin(ModelAdmin):
-    pass
-
-@admin.register(HeroBodyLogo)
-class HeroBodyLogoAdmin(ModelAdmin):
-    pass
 
 @admin.register(Demo)
 class DemoAdmin(ModelAdmin):
-    pass
+    inlines = [DemoFormInline]
 
-
-@admin.register(DemoForm)
-class DemoFormAdmin(ModelAdmin):
-    pass
 
 
 @admin.register(AboutUs)
 class AboutUsAdmin(ModelAdmin):
-    pass
-
-
-@admin.register(AboutProject)
-class AboutProjectAdmin(ModelAdmin):
-    pass
+    inlines = [AboutProjectInline]
 
 
 @admin.register(Footer)
 class FooterAdmin(ModelAdmin):
-    pass
-
-
-@admin.register(FooterSocial)
-class FooterSocialAdmin(ModelAdmin):
-    pass
-
-
-@admin.register(FooterEmail)
-class FooterEmailAdmin(ModelAdmin):
-    pass
-
-
-@admin.register(FooterPhone)
-class FooterPhoneAdmin(ModelAdmin):
-    pass
+    inlines = [FooterSocialInline, FooterEmailInline, FooterPhoneInline]
 
 
 @admin.register(CertificateTitle)
@@ -123,8 +151,8 @@ class CertificateTitleAdmin(ModelAdmin):
 @admin.register(WorkTitle)
 class WorkTitleAdmin(ModelAdmin):
     pass
+
+
 @admin.register(ManagerTitle)
 class ManagerTitleAdmin(ModelAdmin):
     pass
-
-
