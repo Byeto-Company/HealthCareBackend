@@ -7,8 +7,6 @@ from django.utils.text import slugify
 class Category(models.Model):
     name = models.CharField(max_length=100, verbose_name="نام")
     description = models.TextField(verbose_name="توضیحات")
-    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children',
-                               verbose_name="دسته‌بندی والد")
     slug = models.SlugField(max_length=100, unique=True, blank=True, null=True, allow_unicode=True,
                             verbose_name='نام یکتا')
     show_count_in_main = models.BooleanField(default=False, verbose_name='نمایش در صفحه ی اصلی',
@@ -25,8 +23,6 @@ class Category(models.Model):
             return self.name
 
     def save(self, *args, **kwargs):
-        if self.parent and self.parent == self:
-            raise ValueError("A category cannot be its own parent")
         if not self.slug:
             self.slug = self._slug_generate()
 

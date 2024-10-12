@@ -10,19 +10,13 @@ class CategoryProductsSerializer(serializers.ModelSerializer):
 
 class CategoryBreadcrumbSerializer(serializers.ModelSerializer):
     products = serializers.SerializerMethodField()
-    subcategories = serializers.SerializerMethodField()
     class Meta:
         model = Category
-        fields = ['id', 'name', 'slug', 'products', 'subcategories']
+        fields = ['id', 'name', 'slug', 'products',]
 
     def get_products(self, obj):
         products = Product.objects.filter(category=obj)
         return CategoryProductsSerializer(products, many=True).data
-    def get_subcategories(self, obj):
-        subcategories = obj.children.all()
-        if subcategories.exists():
-            return CategoryBreadcrumbSerializer(subcategories, many=True).data
-        return []
 
 
 class FeatureSerializer(serializers.ModelSerializer):
@@ -62,16 +56,10 @@ class CategoriesSerializer(serializers.ModelSerializer):
         return ProductSerializer1(product, many=True).data
 
 class ProductCategoriesSerializer(serializers.ModelSerializer):
-    parent = serializers.SerializerMethodField()
-
     class Meta:
         model = Category
-        fields = ['id', 'name', 'slug', 'parent']
+        fields = ['id', 'name', 'slug']
 
-    def get_parent(self, obj):
-        if obj.parent:
-            return {'id': obj.parent.id, 'name': obj.parent.name, 'slug': obj.parent.slug}
-        return None
 
 class ProductDetailSerializer(serializers.ModelSerializer):
     categories = serializers.SerializerMethodField()
