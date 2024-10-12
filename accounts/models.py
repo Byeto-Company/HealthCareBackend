@@ -16,8 +16,8 @@ class User(AbstractBaseUser):
     USERNAME_FIELD = 'username'
 
     class Meta:
-        verbose_name = _('user')
-        verbose_name_plural = _('users')
+        verbose_name = 'کاربر'
+        verbose_name_plural = 'کاربران'
 
     def __str__(self):
         return self.username
