@@ -1,5 +1,5 @@
 from .pagination import CustomerLimitOffsetPagination
-from .serializer import CustomerSerializer
+from .serializer import *
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from django.http import JsonResponse
@@ -11,7 +11,7 @@ from rest_framework.response import Response
 from django.db.models import Count
 from .models import Customer
 from rest_framework import status
-
+from drf_spectacular.utils import extend_schema, OpenApiExample
 
 # class CustomerViewSet(ModelViewSet):
 #     permission_classes = [IsAuthenticatedOrReadOnly]
@@ -36,6 +36,35 @@ class CustomerGetView(APIView):
 class CustomerCreateView(APIView):
     serializer_class = CustomerSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+    @extend_schema(
+        request=CustomerSerializer,
+        responses=CustomerSerializer,
+        examples=[
+            OpenApiExample(
+                'مثال درخواست ساخت مشتری',
+                value={
+                    "id": 0,
+                    "city": "تهران",
+                    "province": "تهران",
+                    "name": "نام مشتری",
+                    "corporate_date": "1401-10-20", 
+                    "program_name": "نام محصول"
+                },
+            ),
+            OpenApiExample(
+                'مثال پاسخ ساخت مشتری',
+                value={
+                    "id": 7,
+                    "city": "تهران",
+                    "province": "تهران",
+                    "name": "نام مشتری",
+                    "corporate_date": "۱۴۰۱-۱۰-۲۰", 
+                    "program_name": "نام محصول"
+                },
+                response_only=True  
+            ),
+        ],
+    )
     def post(self, request):
         customer_ser = CustomerSerializer(data=request.data)
         if customer_ser.is_valid():
@@ -47,6 +76,23 @@ def get_cities(request):
     province_id = request.GET.get('province')
     cities = City.objects.filter(province_id=province_id).values('id', 'name')
     return JsonResponse(list(cities), safe=False)
+
+
+class GetCityView(APIView):
+    serializer_class = CitySerializer
+    def get(self, request):
+        citys = City.objects.all()
+        city_ser = self.serializer_class(instance=citys, many=True)
+        return Response(city_ser.data, status=status.HTTP_200_OK)
+
+
+class GetProvinceView(APIView):
+    serializer_class = ProvinceSerializer
+    def get(self, request):
+        provinces = Province.objects.all()
+        provinces_ser = self.serializer_class(instance=provinces, many=True)
+        return Response(provinces_ser.data, status=status.HTTP_200_OK)
+
 
 
 class CustomerProvinceViewSet(viewsets.ViewSet):
