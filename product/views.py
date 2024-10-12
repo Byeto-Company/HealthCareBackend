@@ -9,19 +9,19 @@ from rest_framework.views import APIView, Response
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 from django.shortcuts import get_object_or_404
 
-class CategoryViewSet(ModelViewSet):
-    permission_classes = [IsAuthenticatedOrReadOnly]
-    queryset = Category.objects.all()
-    serializer_class = CategoryBreadcrumbSerializer
-    partial_update = None
+# class CategoryViewSet(ModelViewSet):
+#     permission_classes = [IsAuthenticatedOrReadOnly]
+#     queryset = Category.objects.all()
+#     serializer_class = CategoryBreadcrumbSerializer
+#     partial_update = None
 
 
-class ProductViewSet(ModelViewSet):
-    permission_classes = [IsAuthenticatedOrReadOnly]
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-    pagination_class = ProductLimitOffsetPagination
-    partial_update = None
+# class ProductViewSet(ModelViewSet):
+#     permission_classes = [IsAuthenticatedOrReadOnly]
+#     queryset = Product.objects.all()
+#     serializer_class = ProductSerializer
+#     pagination_class = ProductLimitOffsetPagination
+#     partial_update = None
 
 
 class ProductDetailView(APIView):

@@ -8,8 +8,8 @@ urlpatterns = [
     path('list', views.ProductListView.as_view()),
 ]
 
-router = DefaultRouter()
-router.register(r'categories', views.CategoryViewSet, basename='category')
+# router = DefaultRouter()
+# router.register(r'categories', views.CategoryViewSet, basename='category')
 # router.register(r'', views.ProductViewSet, basename='product')
-urlpatterns += router.urls
+# urlpatterns += router.urls
 
