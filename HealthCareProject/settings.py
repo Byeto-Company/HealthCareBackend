@@ -301,12 +301,17 @@ UNFOLD = {
             {
                 "separator": True,  
                 "collapsible": True, 
-                "title": _("بخش فوتر"),
+                "title": _("بخش فوتر و هیرو"),
                 "items": [
                     {
                         "title": _("فوتر"),
                         "icon": "stacked_inbox",  
                         "link": reverse_lazy("admin:about_footer_changelist"),
+                    },
+                    {
+                        "title": _("هیرو"),
+                        "icon": "inventory_2",
+                        "link": reverse_lazy("admin:about_hero_changelist"),
                     },
                 ],
             },
@@ -318,10 +323,16 @@ UNFOLD = {
                 "title": _("دیتا های سایت"),
                 "items": [
                     {
-                        "title": _("فوتر"),
-                        "icon": "stacked_inbox",  
-                        "link": reverse_lazy("admin:about_footer_changelist"),
+                        "title": _("گواهینامه‌ها"),
+                        "icon": "developer_guide",
+                        "link": reverse_lazy("admin:about_certificate_changelist"),
                     },
+                    {
+                        "title": _("مدیران"),
+                        "icon": "shield_person",
+                        "link": reverse_lazy("admin:about_manager_changelist"),
+                    },
+
                 ],
             },
 
