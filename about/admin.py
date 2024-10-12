@@ -103,25 +103,6 @@ class CertificateAdmin(ModelAdmin):
     inlines = [CertificateTitleInline]
 
 
-@admin.register(Soical)
-class SoicalAdmin(ModelAdmin):
-    list_display = ('soical', 'link',)
-    search_fields = ('soical',)
-    ordering = ('soical',)
-
-
-@admin.register(NumberModel)
-class NumberModelAdmin(ModelAdmin):
-    list_display = ('number', 'ordering',)
-    ordering = ('ordering',)
-
-
-@admin.register(EmailModel)
-class EmailModelAdmin(ModelAdmin):
-    list_display = ('email', 'ordering',)
-    ordering = ('ordering',)
-
-
 @admin.register(Hero)
 class HeroAdmin(ModelAdmin):
     inlines = [HeroButtonInline, HeroImageInline, HeroLogoInline, HeroBodyLogoInline]

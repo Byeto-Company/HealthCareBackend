@@ -16,18 +16,9 @@ from customer.models import Customer, Province
 
 class GetFooterView(APIView):
     def get(self, request):
-        socials = Soical.objects.all()
-        social_ser = SocialSerializer(instance=socials, many=True)
-        emails = EmailModel.objects.all()
-        emails_ser = EmailSerializer(instance=emails, many=True)
-        numbers = NumberModel.objects.all()
-        number_ser = NumberSerializer(instance=numbers, many=True)
-        footer_data = {
-            "socials": social_ser.data,
-            'emails': emails_ser.data,
-            "numbers": number_ser.data,
-        }
-        return Response(footer_data, status=status.HTTP_200_OK)
+        footer = Footer.objects.first()  # Assuming one footer
+        footer_serializer = FooterSerializer(footer)
+        return Response(footer_serializer.data, status=status.HTTP_200_OK)
 
 
 # class GetDataBaseView(APIView):

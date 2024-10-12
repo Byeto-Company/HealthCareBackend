@@ -105,44 +105,6 @@ class CertificateTitle(models.Model):
     def __str__(self):
         return self.title
 
-class Soical(models.Model):
-    soical_choices = (
-        ('اینستاگرام', 'instagram'),
-        ('تلگرام', 'telegram'),
-        ('واتساپ', 'whatsapp'),
-        ('تویتر', 'twitter')
-    )
-    soical = models.CharField(max_length=100, choices=soical_choices, unique=True, verbose_name="شبکه اجتماعی")
-    link = models.URLField(verbose_name="لینک")
-
-    class Meta:
-        verbose_name = 'شبکه اجتماعی'
-        verbose_name_plural = 'شبکه‌های اجتماعی'
-
-    def __str__(self):
-        return self.soical
-
-class NumberModel(models.Model):
-    number = models.CharField(max_length=30, verbose_name="شماره")
-    ordering = models.PositiveIntegerField(unique=True, verbose_name="ترتیب")
-
-    class Meta:
-        verbose_name = "مدل شماره"
-        verbose_name_plural = "مدل‌های شماره"
-
-    def __str__(self):
-        return self.number
-
-class EmailModel(models.Model):
-    email = models.CharField(max_length=100, verbose_name="ایمیل")
-    ordering = models.PositiveIntegerField(unique=True, verbose_name="ترتیب")
-
-    class Meta:
-        verbose_name = "مدل ایمیل"
-        verbose_name_plural = "مدل‌های ایمیل"
-
-    def __str__(self):
-        return self.email
 
 class Hero(models.Model):
     title = models.CharField(max_length=255, verbose_name="عنوان")
@@ -270,9 +232,14 @@ class Footer(models.Model):
 
 
 class FooterSocial(models.Model):
+    soical_choices = (
+        ('اینستاگرام', 'instagram'),
+        ('تلگرام', 'telegram'),
+        ('واتساپ', 'whatsapp'),
+        ('تویتر', 'twitter')
+    )
+    soical = models.CharField(max_length=100, choices=soical_choices, unique=True, verbose_name="شبکه اجتماعی")
     footer = models.ForeignKey(Footer, related_name="socials", on_delete=models.CASCADE, verbose_name="فوتر")
-    icon = models.CharField(max_length=100, verbose_name="آیکون")
-    alt = models.CharField(max_length=100, verbose_name="متن جایگزین")
     link = models.URLField(verbose_name="لینک")
 
     class Meta:

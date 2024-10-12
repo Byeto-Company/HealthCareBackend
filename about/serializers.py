@@ -37,29 +37,6 @@ class CertificateSerializer(serializers.ModelSerializer):
         read_only_fields = [id, ]
 
 
-class SocialSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Soical 
-        fields = '__all__'
-        read_only_fields = (id, )
-
-
-class EmailSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = EmailModel 
-        fields = '__all__'
-        read_only_fields = (id, )
-
-
-class NumberSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = NumberModel 
-        fields = '__all__'
-        read_only_fields = (id, )
-
-
-# serializers.py
-
 class HeroLogoSerializer(serializers.ModelSerializer):
     class Meta:
         model = HeroLogo
