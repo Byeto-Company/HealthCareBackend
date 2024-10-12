@@ -137,3 +137,8 @@ class WorkTitleAdmin(ModelAdmin):
 @admin.register(ManagerTitle)
 class ManagerTitleAdmin(ModelAdmin):
     pass
+
+
+@admin.register(HeaderLink)
+class HeaderLinkAdmin(ModelAdmin):
+    pass

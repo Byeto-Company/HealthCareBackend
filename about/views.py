@@ -20,6 +20,14 @@ class GetFooterView(APIView):
         footer_serializer = FooterSerializer(footer)
         return Response(footer_serializer.data, status=status.HTTP_200_OK)
 
+class HeaderLinkView(APIView):
+    serializer_class = HeaderLinkSerializer
+    def get(self, request):
+        headerlinks = HeaderLink.objects.all()
+        headerlink_ser = HeaderLinkSerializer(instance=headerlinks, many=True)
+        return Response(headerlink_ser.data, status=status.HTTP_200_OK)
+
+
 
 # class GetDataBaseView(APIView):
 #     def get(self, request):

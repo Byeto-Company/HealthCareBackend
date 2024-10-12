@@ -136,3 +136,10 @@ class CertificateTitleSerializer(serializers.ModelSerializer):
     class Meta:
         model = CertificateTitle
         fields = ['title', 'description']
+
+
+class HeaderLinkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HeaderLink
+        fields = '__all__'
+

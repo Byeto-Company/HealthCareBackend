@@ -313,6 +313,11 @@ UNFOLD = {
                         "icon": "inventory_2",
                         "link": reverse_lazy("admin:about_hero_changelist"),
                     },
+                                       {
+                        "title": _("لینک های هدر"),
+                        "icon": "link",
+                        "link": reverse_lazy("admin:about_headerlink_changelist"),
+                    },
                 ],
             },
 

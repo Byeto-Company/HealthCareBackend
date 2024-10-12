@@ -272,3 +272,13 @@ class FooterPhone(models.Model):
 
     def __str__(self):
         return self.phone
+
+
+class HeaderLink(models.Model):
+    name = models.CharField(max_length=40)
+    link = models.URLField()
+    def __str__(self):
+        return self.name
+    class Meta:
+        verbose_name = 'لینک هدر'
+        verbose_name_plural = 'لینک های هدر'
