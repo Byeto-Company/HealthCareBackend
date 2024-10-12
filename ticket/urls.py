@@ -8,9 +8,3 @@ urlpatterns = [
     path('request-demo', views.RequestDemoAPIView.as_view(), name='request-demo'),
     path('contact-us', views.ContactUsAPIView.as_view(), name='contact-us'),
 ]
-
-# router = DefaultRouter()
-# router.register(r'request-demo', views.RequestDemoViewSet, basename='request-demo')
-# router.register(r'contact-us', views.ContactUsViewSet, basename='contact-us')
-#
-# urlpatterns += router.urls
