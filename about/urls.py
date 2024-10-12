@@ -5,5 +5,4 @@ app_name = 'about'
 urlpatterns = [
     path('footer', views.GetFooterView.as_view()),
     path('main', views.WebsiteContentView.as_view()),
-    path('header-link', views.HeaderLinkView.as_view())
 ]

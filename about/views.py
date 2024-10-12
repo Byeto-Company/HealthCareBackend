@@ -20,12 +20,7 @@ class GetFooterView(APIView):
         footer_serializer = FooterSerializer(footer)
         return Response(footer_serializer.data, status=status.HTTP_200_OK)
 
-class HeaderLinkView(APIView):
-    serializer_class = HeaderLinkSerializer
-    def get(self, request):
-        headerlinks = HeaderLink.objects.all()
-        headerlink_ser = HeaderLinkSerializer(instance=headerlinks, many=True)
-        return Response(headerlink_ser.data, status=status.HTTP_200_OK)
+
 
 
 
@@ -106,10 +101,14 @@ class WebsiteContentView(APIView):
         certificate_title = CertificateTitle.objects.first()
         certificate_title_serializer = CertificateTitleSerializer(certificate_title)
 
+        headerlinks = HeaderLink.objects.all()
+        headerlink_ser = HeaderLinkSerializer(instance=headerlinks, many=True)
+
         return Response({
             "logo": logo_serializer.data,
             "body_logo": body_logo_serializer.data,
             "hero": hero_serializer.data,
+            'nav_links': headerlink_ser.data,
             "work_fields": {
                 "title": work_title.title,
                 "description": work_title.description,
