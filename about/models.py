@@ -247,7 +247,7 @@ class FooterSocial(models.Model):
         verbose_name_plural = "شبکه‌های اجتماعی فوتر"
 
     def __str__(self):
-        return self.alt
+        return self.soical
 
 
 class FooterEmail(models.Model):
