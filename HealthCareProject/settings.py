@@ -286,6 +286,13 @@ UNFOLD = {
                         "icon": "webhook",
                         "link": reverse_lazy("admin:ticket_endpointsendrequestdemo_changelist"),
                     },
+                    {
+                        "title": _("لاگ ارسال تیکت"),
+                        "icon": "description",
+                        "link": reverse_lazy("admin:ticket_logticket_changelist"),
+                    },
+
+
                 ],
             },
 

@@ -22,3 +22,8 @@ class EndPointSendContactUsAdmin(ModelAdmin):
 class EndPointSendRequestDemoAdmin(ModelAdmin):
     list_display = ('request_link', 'full_name', 'email', 'phone_number', 'company_name', 'message', 'requested_at')
 
+
+@admin.register(LogTicket)
+class LogTicketsAdmin(ModelAdmin):
+    pass
+

@@ -42,10 +42,9 @@ class RequestDemoAPIView(APIView):
                         response = requests.post(endpoint_config.request_link, json=data_to_send)
 
                         if response.status_code != 200:
-                            pass
+                            LogTicket.objects.create(status_code=response.status_code, request_body=data_to_send, response=response.text, exception='')
                     except Exception as e:
-
-                        pass
+                        LogTicket.objects.create(exception=e)
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -81,9 +80,10 @@ class ContactUsAPIView(APIView):
                         print(data_to_send)
                         response = requests.post(endpoint_config.request_link, json=data_to_send)
                         if response.status_code != 200:
-                            pass
+                            LogTicket.objects.create(status_code=response.status_code, request_body=data_to_send,
+                                                      response=response.text, exception='')
                     except Exception as e:
-                        pass
+                        LogTicket.objects.create(exception=e)
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 

@@ -64,5 +64,11 @@ class EndPointSendRequestDemo(models.Model):
     def __str__(self):
         return self.request_link
 
-
+class LogTicket(models.Model):
+    status_code = models.CharField(max_length=10, blank=True, null=True)
+    request_body = models.TextField(blank=True, null=True)
+    response = models.TextField(blank=True, null=True)
+    exception = models.TextField(blank=True, null=True)
+    def __str__(self):
+        return self.status_code
 
