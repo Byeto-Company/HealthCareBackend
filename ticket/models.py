@@ -31,3 +31,38 @@ class ContactUs(models.Model):
 
     def __str__(self):
         return f"تماس از {self.full_name} - {self.subject}"
+
+
+class EndPointSendContactUs(models.Model):
+    request_link = models.URLField(verbose_name='لینک پست ارتباط با ما')
+    full_name = models.BooleanField(verbose_name="ارسال نام", help_text='ارسال با کلید full_name')
+    email = models.BooleanField(verbose_name="ارسال ایمیل", help_text='ارسال با کلید email')
+    subject = models.BooleanField(verbose_name="ارسال موضوع", help_text='ارسال با کلید subject')
+    message = models.BooleanField(verbose_name="ارسال پیام", help_text='ارسال با کلید message')
+    contacted_at = models.BooleanField(verbose_name="ارسال تاریخ تماس", help_text='ارسال با کلید contacted_at')
+    class Meta:
+        verbose_name = 'لینک پست تیکت تماس با ما'
+        verbose_name_plural = 'لینک های پست تیکت تماس با ما'
+    def __str__(self):
+        return self.request_link
+
+
+class EndPointSendRequestDemo(models.Model):
+    request_link = models.URLField(verbose_name='لینک پست درخواست دمو')
+    full_name = models.BooleanField(verbose_name="ارسال نام", help_text='ارسال با کلید full_name')
+    email = models.BooleanField(verbose_name="ارسال ایمیل", help_text='ارسال با کلید email')
+    phone_number = models.BooleanField(verbose_name="ارسال شماره تلفن", help_text='ارسال با کلید phone_number')
+    company_name = models.BooleanField(verbose_name="ارسال نام شرکت", help_text='ارسال با کلید company_name')
+    message = models.BooleanField(verbose_name="ارسال پیام", help_text='ارسال با کلید message')
+    module_name = models.BooleanField(verbose_name="ارسال نام ماژول", help_text='ارسال با کلید module_name')
+    requested_at = models.BooleanField(verbose_name="ارسال تاریخ درخواست", help_text='ارسال با کلید requested_at')
+
+    class Meta:
+        verbose_name = 'لینک پست درخواست دمو'
+        verbose_name_plural = 'لینک های پست درخواست دمو'
+
+    def __str__(self):
+        return self.request_link
+
+
+

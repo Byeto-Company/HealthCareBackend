@@ -273,8 +273,18 @@ UNFOLD = {
                     },
                     {
                         "title": _("درخواست دمو"),
-                        "icon": "handshake",  
+                        "icon": "handshake",
                         "link": reverse_lazy("admin:ticket_requestdemo_changelist"),
+                    },
+                    {
+                        "title": _("لینک های ارسال تیکت تماس"),
+                        "icon": "webhook",
+                        "link": reverse_lazy("admin:ticket_endpointsendcontactus_changelist"),
+                    },
+                    {
+                        "title": _("لینک های ارسال تیکت دمو"),
+                        "icon": "webhook",
+                        "link": reverse_lazy("admin:ticket_endpointsendrequestdemo_changelist"),
                     },
                 ],
             },
