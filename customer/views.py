@@ -22,10 +22,15 @@ from rest_framework import status
 
 class CustomerGetView(APIView):
     serializer_class = CustomerSerializer
+    pagination_class = CustomerLimitOffsetPagination 
+    
     def get(self, request):
         customers = Customer.objects.all()
-        customers_ser = CustomerSerializer(instance=customers, many=True)
-        return Response(customers_ser.data, status=status.HTTP_200_OK)
+        paginator = CustomerLimitOffsetPagination()  
+        paginated_customers = paginator.paginate_queryset(customers, request)  
+        
+        customers_ser = CustomerSerializer(instance=paginated_customers, many=True)  
+        return paginator.get_paginated_response(customers_ser.data) 
 
 
 class CustomerCreateView(APIView):
