@@ -25,7 +25,7 @@ class City(models.Model):
         verbose_name_plural = "شهرها"
 
     def __str__(self):
-        return f"{self.name} - {self.province.name}"
+        return self.name
 
 
 class Customer(models.Model):
