@@ -142,3 +142,7 @@ class ManagerTitleAdmin(ModelAdmin):
 @admin.register(HeaderLink)
 class HeaderLinkAdmin(ModelAdmin):
     pass
+
+@admin.register(MetaTagsPage)
+class MetaTagsPage(ModelAdmin):
+    pass

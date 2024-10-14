@@ -44,7 +44,11 @@ class SlideSerializer(serializers.ModelSerializer):
 class ProductSerializer1(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ['id', 'name', 'product_icon_photo', 'slug']
+        fields = ['id', 'name', 'product_icon_photo', 'slug', 'meta_keyword', 'meta_description']
+
+
+
+
 
 class CategoriesSerializer(serializers.ModelSerializer):
     product_list = serializers.SerializerMethodField()

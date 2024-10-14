@@ -43,6 +43,8 @@ class Product(models.Model):
     name = models.CharField(max_length=100, verbose_name="نام محصول")
     slug = models.SlugField(max_length=100, unique=True, blank=True, null=True, allow_unicode=True,
                             verbose_name='نام یکتا')
+    meta_description = models.TextField(verbose_name='متا تگ دسکریپشن')
+    meta_keyword = models.TextField(help_text='لطفا با کاما وارد کنید', verbose_name='متا تگ کیورد')
     description = models.TextField(verbose_name="توضیحات محصول")
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="دسته‌بندی")
     thumbnail = models.ImageField(upload_to=f'fproduct/main_photos', verbose_name="عکس اصلی")
