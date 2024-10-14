@@ -66,6 +66,7 @@ class ProductCategoriesSerializer(serializers.ModelSerializer):
 
 
 class ProductDetailSerializer(serializers.ModelSerializer):
+    meta = serializers.SerializerMethodField()
     categories = serializers.SerializerMethodField()
     features_list = FeatureSerializer(many=True, read_only=True, source='features')
     capability_list = CapabilitySerializer(many=True, read_only=True, source='capability')
@@ -73,20 +74,9 @@ class ProductDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ['id', 'name', 'slug', 'description', 'category', 'thumbnail', 'features_list', 'capability_list',
+        fields = ['id', 'name', 'slug', 'meta', 'description', 'category', 'thumbnail', 'features_list', 'capability_list',
                   'categories']
 
-    def get_categories(self, obj):
-        categories = Category.objects.all()
-        return CategoriesSerializer(categories, many=True).data
-
-class ProductSerializer(serializers.ModelSerializer):
-    meta = serializers.SerializerMethodField()
-    category = ProductCategoriesSerializer()
-    slides_list = SlideSerializer(many=True, read_only=True, source='slides')
-    class Meta:
-        model = Product
-        fields = ['id', 'name', 'description', 'category', 'product_icon_photo', 'slug', 'slides_list', 'meta']
     def get_categories(self, obj):
         categories = Category.objects.all()
         return CategoriesSerializer(categories, many=True).data
@@ -97,3 +87,15 @@ class ProductSerializer(serializers.ModelSerializer):
             'meta_description': obj.meta_description,
         }
         return data
+
+class ProductSerializer(serializers.ModelSerializer):
+
+    category = ProductCategoriesSerializer()
+    slides_list = SlideSerializer(many=True, read_only=True, source='slides')
+    class Meta:
+        model = Product
+        fields = ['id', 'name', 'description', 'category', 'product_icon_photo', 'slug', 'slides_list']
+    def get_categories(self, obj):
+        categories = Category.objects.all()
+        return CategoriesSerializer(categories, many=True).data
+
