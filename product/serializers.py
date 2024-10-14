@@ -83,7 +83,8 @@ class ProductDetailSerializer(serializers.ModelSerializer):
 
     def get_meta(self, obj):
         data = {
-            'meta_keyword': obj.meta_keyword,
+            'meta_title': obj.meta_title,
+            'meta_keywords': obj.meta_keyword,
             'meta_description': obj.meta_description,
         }
         return data
