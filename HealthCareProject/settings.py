@@ -16,8 +16,12 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 #TODO
 DEBUG = False
 #TODO
-ALLOWED_HOSTS = [os.getent('API_BASE_URL'), os.getenv('BASE_FRONT_URL'), f'www.{os.getent('API_BASE_URL')}', f'www.{os.getenv('BASE_FRONT_URL')}']
-
+ALLOWED_HOSTS = [
+    os.getenv('API_BASE_URL'),
+    os.getenv('BASE_FRONT_URL'),
+    f"www.{os.getenv('API_BASE_URL')}",
+    f"www.{os.getenv('BASE_FRONT_URL')}"
+]
 # Application definition
 
 INSTALLED_APPS = [
