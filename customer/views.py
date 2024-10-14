@@ -40,7 +40,8 @@ class CustomerGetView(APIView):
                 "title": title.title,
                 "description": title.description,
                 "meta": {
-                    "keyword": metatags.first().meta_keyword,
+                    "title": metatags.first().meta_title,
+                    "keywords": metatags.first().meta_keyword,
                     "description": metatags.first().meta_description,
                 },
                 "customers": paginator.get_paginated_response(customers_ser.data).data,
