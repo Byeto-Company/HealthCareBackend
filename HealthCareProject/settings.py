@@ -159,6 +159,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://hcareapi.liara.run",
     "http://localhost:8000",
     "http://localhost:3000",
+    "https://healthcaretest.liara.run"
 ]
 
 UNFOLD = {
