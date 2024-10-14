@@ -289,7 +289,7 @@ class MetaTagsPage(models.Model):
         ('main_page', 'صفحه اصلی'),
         ('customer', 'صفحه ی مشتریان'),
         )
-    page = models.CharField(choices=page_choices, max_length=20)
+    page = models.CharField(choices=page_choices, max_length=20, unique=True)
     meta_description = models.TextField(verbose_name='متا تگ دسکریپشن')
     meta_keyword = models.TextField(help_text='لطفا با کاما وارد کنید', verbose_name='متا تگ کیورد')
     def __str__(self):
