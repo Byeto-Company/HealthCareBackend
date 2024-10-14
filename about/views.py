@@ -112,7 +112,8 @@ class WebsiteContentView(APIView):
             "body_logo": body_logo_serializer.data,
             "hero": hero_serializer.data,
             "meta": {
-                "keyword": metatags.first().meta_keyword,
+                "title": metatags.first().meta_title,
+                "keywords": metatags.first().meta_keyword,
                 "description": metatags.first().meta_description,
             },
             'nav_links': headerlink_ser.data,
