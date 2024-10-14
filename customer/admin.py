@@ -1,7 +1,8 @@
 from django.contrib import admin
 from unfold.admin import ModelAdmin
-from .models import Province, City, Customer
+from .models import Province, City, Customer, CustomerTitle
 from django_jalali.admin.filters import JDateFieldListFilter
+
 
 @admin.register(Province)
 class ProvinceAdmin(ModelAdmin):
@@ -43,3 +44,7 @@ class CustomerAdmin(ModelAdmin):
 
     class Media:
         js = ('js/admin.js',)
+
+@admin.register(CustomerTitle)
+class CustomerTitleAdmin(ModelAdmin):
+    exclude = ['customer']

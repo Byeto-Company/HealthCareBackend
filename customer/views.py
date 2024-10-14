@@ -1,15 +1,18 @@
+from http.client import responses
+
+from about.models import MetaTagsPage
 from .pagination import CustomerLimitOffsetPagination
 from .serializer import *
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from django.http import JsonResponse
-from .models import City
+from .models import City, CustomerTitle
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.db.models import Count
-from .models import Customer
+from .models import Customer, CustomerTitle
 from rest_framework import status
 from drf_spectacular.utils import extend_schema, OpenApiExample
 
@@ -27,11 +30,31 @@ class CustomerGetView(APIView):
     def get(self, request):
         customers = Customer.objects.all()
         paginator = CustomerLimitOffsetPagination()  
-        paginated_customers = paginator.paginate_queryset(customers, request)  
+        paginated_customers = paginator.paginate_queryset(customers, request)
+        metatags = MetaTagsPage.objects.filter(page="customer")
+        title = CustomerTitle.objects.first()
         
-        customers_ser = CustomerSerializer(instance=paginated_customers, many=True)  
-        return paginator.get_paginated_response(customers_ser.data) 
-
+        customers_ser = CustomerSerializer(instance=paginated_customers, many=True)
+        if title:
+            return Response({
+                "title": title.title,
+                "description": title.description,
+                "meta": {
+                    "keyword": metatags.first().meta_keyword,
+                    "description": metatags.first().meta_description,
+                },
+                "customers": paginator.get_paginated_response(customers_ser.data).data,
+            })
+        else:
+            return Response({
+                "title": "",
+                "description": "",
+                "meta": {
+                    "keyword": metatags.first().meta_keyword,
+                    "description": metatags.first().meta_description,
+                },
+                "customers": paginator.get_paginated_response(customers_ser.data).data,
+            })
 
 class CustomerCreateView(APIView):
     serializer_class = CustomerSerializer

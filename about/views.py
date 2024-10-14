@@ -14,6 +14,7 @@ from rest_framework import status
 from customer.models import Customer, Province
 
 
+
 class GetFooterView(APIView):
     def get(self, request):
         footer = Footer.objects.first()  # Assuming one footer
@@ -104,10 +105,16 @@ class WebsiteContentView(APIView):
         headerlinks = HeaderLink.objects.all()
         headerlink_ser = HeaderLinkSerializer(instance=headerlinks, many=True)
 
+        metatags = MetaTagsPage.objects.filter(page="main_page")
+
         return Response({
             "logo": logo_serializer.data,
             "body_logo": body_logo_serializer.data,
             "hero": hero_serializer.data,
+            "meta": {
+                "keyword": metatags.first().meta_keyword,
+                "description": metatags.first().meta_description,
+            },
             'nav_links': headerlink_ser.data,
             "work_fields": {
                 "title": work_title.title,
