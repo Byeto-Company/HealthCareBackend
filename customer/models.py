@@ -66,3 +66,15 @@ def convert_to_persian_numbers(date_string):
     persian_date_string = ''.join(english_to_persian.get(char, char) for char in date_string)
 
     return persian_date_string
+
+class CustomerTitle(models.Model):
+    title = models.CharField(max_length=100, verbose_name="عنوان")
+    description = models.TextField(verbose_name="توضیحات")
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, blank=True, null=True, verbose_name="مشتریان")
+
+    class Meta:
+        verbose_name = "عنوان صفحه مشتریان"
+        verbose_name_plural = "عناوین صفحه مشتریان"
+
+    def __str__(self):
+        return self.title

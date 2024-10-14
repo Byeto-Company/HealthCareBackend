@@ -8,37 +8,37 @@ from .models import *
 # Inline classes for related models
 class WorkTitleInline(admin.TabularInline):
     model = WorkTitle
-    extra = 1  # Number of empty forms to display
+    extra = 1
 
 
 class ManagerTitleInline(admin.TabularInline):
     model = ManagerTitle
-    extra = 1  # Number of empty forms to display
+    extra = 1
 
 
 class CertificateTitleInline(admin.TabularInline):
     model = CertificateTitle
-    extra = 1  # Number of empty forms to display
+    extra = 1
 
 
 class HeroButtonInline(admin.TabularInline):
     model = HeroButton
-    extra = 1  # Number of empty forms to display
+    extra = 1
 
 
 class HeroImageInline(admin.TabularInline):
     model = HeroImage
-    extra = 1  # Number of empty forms to display
+    extra = 1
 
 
 class HeroLogoInline(admin.TabularInline):
     model = HeroLogo
-    extra = 1  # Number of empty forms to display
+    extra = 1
 
 
 class HeroBodyLogoInline(admin.TabularInline):
     model = HeroBodyLogo
-    extra = 1  # Number of empty forms to display
+    extra = 1
 
 
 class DemoFormInline(admin.TabularInline):
