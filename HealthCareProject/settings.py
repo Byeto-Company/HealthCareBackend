@@ -4,17 +4,19 @@ import os
 from django.templatetags.static import static
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
+import os
+
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 #TODO
-SECRET_KEY = 'django-insecure-*%7xn10@%!n8o7agwc+m$%vx7-=g^oj!1$3y#0+aa+6rsy=$^p'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #TODO
-DEBUG = True
+DEBUG = False
 #TODO
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [os.getent('API_BASE_URL'), os.getenv('BASE_FRONT_URL'), f'www.{os.getent('API_BASE_URL')}', f'www.{os.getenv('BASE_FRONT_URL')}']
 
 # Application definition
 
@@ -81,15 +83,14 @@ WSGI_APPLICATION = 'HealthCareProject.wsgi.application'
 
 
 #TODO
-# public network database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
-        'USER': 'root',
-        'PASSWORD': 'lCf0RW9MCLXucCz2KbIdXu7j',
-        'HOST': 'apo.liara.cloud',
-        'PORT': '32122',
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT'),
     }
 }
 
@@ -135,8 +136,8 @@ REST_FRAMEWORK = {
 AUTH_USER_MODEL = 'accounts.User'
 #TODO 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=5000),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=5000),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=10),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=20),
 }
 
 SPECTACULAR_SETTINGS = {
@@ -155,13 +156,18 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticroot')
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 #TODO
-CORS_ALLOWED_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    f"http://{os.getenv('API_BASE_URL')}",
+    f"https://{os.getenv('API_BASE_URL')}",
+    f"http://{os.getenv('BASE_FRONT_URL')}",
+    f"https://{os.getenv('BASE_FRONT_URL')}",
+]
 
 UNFOLD = {
     "SITE_TITLE": "Health Care API",
     "SITE_HEADER": "Health Care API",
     #TODO url
-    "SITE_URL": "/",
+    "SITE_URL": os.getenv('BASE_FRONT_URL'),
     "SITE_SYMBOL": "clinical_notes",
     "SITE_FAVICONS": [
         {
