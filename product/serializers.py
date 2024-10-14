@@ -42,10 +42,16 @@ class SlideSerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer1(serializers.ModelSerializer):
+    meta = serializers.SerializerMethodField()
     class Meta:
         model = Product
-        fields = ['id', 'name', 'product_icon_photo', 'slug', 'meta_keyword', 'meta_description']
-
+        fields = ['id', 'name', 'product_icon_photo', 'slug', 'meta']
+    def get_meta(self, obj):
+        data = {
+            'meta_keyword': obj.meta_keyword,
+            'meta_description': obj.meta_description,
+        }
+        return data
 
 
 
