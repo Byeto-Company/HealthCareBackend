@@ -82,14 +82,26 @@ WSGI_APPLICATION = 'HealthCareProject.wsgi.application'
 
 #TODO
 # public network database
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'postgres',
+#         'USER': 'root',
+#         'PASSWORD': 'lCf0RW9MCLXucCz2KbIdXu7j',
+#         'HOST': 'apo.liara.cloud',
+#         'PORT': '32122',
+#     }
+# }
+
+# private db
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
         'USER': 'root',
         'PASSWORD': 'lCf0RW9MCLXucCz2KbIdXu7j',
-        'HOST': 'apo.liara.cloud',
-        'PORT': '32122',
+        'HOST': 'healthdb',
+        'PORT': '5432',
     }
 }
 
