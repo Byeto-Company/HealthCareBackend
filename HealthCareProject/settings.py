@@ -314,7 +314,7 @@ UNFOLD = {
             {
                 "separator": True,  
                 "collapsible": True, 
-                "title": _("بخش فوتر و هیرو"),
+                "title": _("بخش فوتر و هیرو و هدر"),
                 "items": [
                     {
                         "title": _("فوتر"),
