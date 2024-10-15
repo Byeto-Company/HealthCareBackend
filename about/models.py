@@ -294,7 +294,7 @@ class MetaTagsPage(models.Model):
     meta_description = models.TextField(verbose_name='متا تگ دسکریپشن')
     meta_keyword = models.TextField(help_text='لطفا با کاما وارد کنید', verbose_name='متا تگ کیورد')
     def __str__(self):
-        return self.page
+        return self.get_page_display()
     class Meta:
         verbose_name = 'متا تگ های صفحات'
         verbose_name_plural =  'متا تگ صفحات'

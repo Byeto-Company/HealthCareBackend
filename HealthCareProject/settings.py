@@ -161,7 +161,7 @@ UNFOLD = {
     "SITE_TITLE": "Health Care API",
     "SITE_HEADER": "Health Care API",
     #TODO url
-    "SITE_URL": "/",
+    "SITE_URL": "https://sunrisesys.ir",
     "SITE_SYMBOL": "clinical_notes",
     "SITE_FAVICONS": [
         {
@@ -330,6 +330,11 @@ UNFOLD = {
                         "title": _("لینک های هدر"),
                         "icon": "link",
                         "link": reverse_lazy("admin:about_headerlink_changelist"),
+                    },
+                    {
+                        "title": _("متا تگ صفحات"),
+                        "icon": "sell",
+                        "link": reverse_lazy("admin:about_metatagspage_changelist"),
                     },
                 ],
             },
