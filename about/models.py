@@ -292,7 +292,7 @@ class MetaTagsPage(models.Model):
     page = models.CharField(choices=page_choices, max_length=20, unique=True)
     meta_title = models.TextField(verbose_name="متا تگ عنوان")
     meta_description = models.TextField(verbose_name='متا تگ دسکریپشن')
-    meta_keyword = models.TextField(help_text='لطفا با کاما وارد کنید', verbose_name='متا تگ کیورد')
+    meta_keyword = models.TextField(help_text='متا تگ های صفحات را با کاما وارد کنید!!!!!', verbose_name='متا تگ کیورد')
     def __str__(self):
         return self.get_page_display()
     class Meta:
