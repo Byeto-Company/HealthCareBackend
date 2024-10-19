@@ -94,14 +94,17 @@ WSGI_APPLICATION = 'HealthCareProject.wsgi.application'
 # }
 
 # private db
+
+
+# docker db
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'root',
-        'PASSWORD': 'lCf0RW9MCLXucCz2KbIdXu7j',
-        'HOST': 'healthdb',
-        'PORT': '5432',
+        'NAME': os.getenv('POSTGRES_DB'),
+        'USER': os.getenv('POSTGRES_USER'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+        'HOST': 'db',  # Docker service name
+        'PORT': 5432,
     }
 }
 
