@@ -1785,68 +1785,8 @@
         ]
     },
     {
-        "name": "يزد",
+        "name": "البرز",
         "cities": [
-            {
-                "name": "يزد",
-                "latitude": "31.530",
-                "longitude": "54.210"
-            },
-            {
-                "name": "تفت",
-                "latitude": "31.450",
-                "longitude": "54.120"
-            },
-            {
-                "name": "اردكان",
-                "latitude": "32.200",
-                "longitude": "53.590"
-            },
-            {
-                "name": "ابركوه",
-                "latitude": "31.741",
-                "longitude": "53.1652"
-            },
-            {
-                "name": "ميبد",
-                "latitude": "32.140",
-                "longitude": "54.10"
-            },
-            {
-                "name": "طبس",
-                "latitude": "33.370",
-                "longitude": "56.540"
-            },
-            {
-                "name": "بافق",
-                "latitude": "31.360",
-                "longitude": "55.240"
-            },
-            {
-                "name": "مهريز",
-                "latitude": "31.359",
-                "longitude": "54.2520"
-            },
-            {
-                "name": "اشكذر",
-                "latitude": "31.5938",
-                "longitude": "54.1220"
-            },
-            {
-                "name": "هرات",
-                "latitude": "30.40",
-                "longitude": "54.220"
-            },
-            {
-                "name": "خضرآباد",
-                "latitude": "53.953",
-                "longitude": "31.866"
-            },
-            {
-                "name": "زارچ",
-                "latitude": "54.26",
-                "longitude": "31.979"
-            }
         ]
     }
 ]
